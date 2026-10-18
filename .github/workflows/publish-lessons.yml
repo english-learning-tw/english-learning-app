@@ -50,10 +50,11 @@ jobs:
           # Only print non-sensitive identity metadata; NEVER print the JWT.
           for field in ("iss", "aud", "sub", "repository", "ref", "repository_id", "repository_owner_id", "event_name"):
               print(f"{field}: {claims.get(field, '(not present)')}")
-          print("subject_matches_expected:", claims.get("sub") == os.environ["EXPECTED_SUB"])
+          mapped_subject = "repo:" + str(claims.get("repository")) + ":ref:" + str(claims.get("ref"))
+          print("mapped_subject_matches_expected:", mapped_subject == os.environ["EXPECTED_SUB"])
           print("repository_matches_expected:", claims.get("repository") == os.environ["EXPECTED_REPO"])
-          if claims.get("sub") != os.environ["EXPECTED_SUB"]:
-              raise SystemExit("GitHub OIDC subject does not match the service-account IAM principal")
+          if mapped_subject != os.environ["EXPECTED_SUB"]:
+              raise SystemExit("Mapped Google subject would not match service-account IAM principal")
           PY
       - name: Authenticate to Google Cloud (OIDC, no private key)
         uses: google-github-actions/auth@v2
