@@ -32,6 +32,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install 'google-auth>=2.20,<3'
+      - run: python -m pip install 'google-auth>=2.20,<3' 'requests>=2.31,<3'
       - name: Publish declared lessons
         run: python scripts/publish_lessons.py
