@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publish declared repository-root HTML lessons to Firestore via REST API.
 
-Runs only in trusted GitHub Actions. Never put service-account JSON in the repo.
+Uses short-lived GitHub OIDC / Google Workload Identity Federation credentials.
 """
 import json
 import os
@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 from urllib.parse import quote
 
-from google.oauth2 import service_account
+import google.auth
 from google.auth.transport.requests import Request as AuthRequest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -74,15 +74,11 @@ def main():
     if not lessons:
         print("No lesson-publications/*.json files found. Nothing to publish.")
         return
-    payload = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
-    if not payload:
-        fail("Missing FIREBASE_SERVICE_ACCOUNT_JSON Actions secret")
-    info = json.loads(payload)
-    if info.get("project_id") != PROJECT_ID:
-        fail("Service account does not belong to expected Firebase project")
-    credentials = service_account.Credentials.from_service_account_info(
-        info, scopes=["https://www.googleapis.com/auth/datastore"]
+    credentials, active_project = google.auth.default(
+        scopes=["https://www.googleapis.com/auth/datastore"]
     )
+    if active_project and active_project != PROJECT_ID:
+        fail("Google Cloud credentials are for an unexpected project")
     credentials.refresh(AuthRequest())
     for metadata, filename, fields in lessons:
         publish(credentials.token, filename, fields)
