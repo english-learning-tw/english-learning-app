@@ -1,0 +1,23 @@
+{
+  "name": "English Learning - 隨身英文學習",
+  "short_name": "英文學習",
+  "description": "英文單字、片語與發音學習主題整合",
+  "lang": "zh-TW",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7ff",
+  "theme_color": "#1a58a5",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

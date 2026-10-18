@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function admin() { return request.auth != null && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    match /admins/{uid} { allow get: if request.auth != null && request.auth.uid == uid; allow list, write: if false; }
+    match /publishedWords/{id} { allow read: if true; allow create, update: if admin() && request.resource.data.keys().hasOnly(['en','zh','ipa','category','example','translation','updatedAt','publisherUid']) && request.resource.data.publisherUid == request.auth.uid; allow delete: if admin(); }
+    match /publishedLessons/{id} { allow read: if true; allow create, update: if admin() && request.resource.data.keys().hasOnly(['title','category','url','updatedAt','publisherUid']) && request.resource.data.publisherUid == request.auth.uid && request.resource.data.url.matches('https://english-learning-tw[.]github[.]io/english-learning-app/[A-Za-z0-9_-]+[.]html?'); allow delete: if admin(); }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

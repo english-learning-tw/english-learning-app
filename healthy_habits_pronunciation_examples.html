@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>健康習慣英文發音練習</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial;margin:0;background:#f6fbff;color:#203040}
+header{text-align:center;padding:30px 16px}h1{color:#176c9a}.wrap{max-width:1000px;margin:auto;padding:0 14px 40px}.group{background:#fff;border:1px solid #dce8ef;border-radius:20px;padding:18px;margin-bottom:16px}.head{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.phrase{font-size:24px;font-weight:800;color:#176c9a}.meaning{color:#617080}.card{border-top:1px dashed #d5e1e8;padding:14px 0;display:flex;justify-content:space-between;gap:12px;align-items:center}.eng{font-size:20px;font-weight:700}.zh{color:#687987;margin-top:4px}button{border:0;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}.normal{background:#176c9a;color:white}.slow{background:#7057a8;color:white}.all{background:#184d6b;color:white;margin:4px}.toolbar{text-align:center;margin-bottom:18px}
+@media(max-width:640px){.card{align-items:flex-start;flex-direction:column}}
+</style></head><body>
+<header><h1>🎧 健康習慣英文例句發音練習</h1><p>3 組句型・9 個例句・正常與慢速發音</p></header>
+<div class="wrap"><div class="toolbar"><button class="all" id="playAll">▶ 全部播放</button><button id="stop">⏹ 停止</button></div><div id="content"></div></div>
+<script>
+const lessons=[{"group": "be off + 某物", "phrase": "I'm off coffee.", "meaning": "我戒咖啡了／我現在不喝咖啡了", "examples": [["I'm off coffee for a while.", "我暫時不喝咖啡。"], ["I'm off alcohol.", "我戒酒了／目前不喝酒。"], ["I'm off sugary drinks.", "我不喝含糖飲料了。"]]}, {"group": "quit cold turkey", "phrase": "I quit cold turkey.", "meaning": "我直接戒掉了／我完全突然停掉了", "examples": [["I quit smoking cold turkey.", "我完全直接戒菸了。"], ["She quit sugar cold turkey.", "她直接完全戒糖。"], ["He quit coffee cold turkey.", "他一次就把咖啡戒掉了。"]]}, {"group": "cut out + 某物", "phrase": "I'm cutting out sugar.", "meaning": "我正在戒糖／把糖從飲食中去掉", "examples": [["I'm cutting out sugar.", "我正在戒糖。"], ["I'm trying to cut out junk food.", "我正在努力戒掉垃圾食物。"], ["I cut out soda.", "我不喝汽水了。"]]}];
+function say(t,r){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r;speechSynthesis.speak(u)}
+const c=document.getElementById("content");
+lessons.forEach((g,gi)=>{
+ const s=document.createElement("section");s.className="group";
+ s.innerHTML=`<div class="head"><div><div class="phrase">${gi+1}. ${g.phrase}</div><div class="meaning">${g.meaning}</div></div><div><button class="normal p1">🔊 句型</button> <button class="slow p2">🐢 慢速</button></div></div><div class="list"></div>`;
+ s.querySelector(".p1").onclick=()=>say(g.phrase,.88);s.querySelector(".p2").onclick=()=>say(g.phrase,.62);
+ const list=s.querySelector(".list");
+ g.examples.forEach((x,i)=>{const d=document.createElement("div");d.className="card";d.innerHTML=`<div><div class="eng">${i+1}. ${x[0]}</div><div class="zh">${x[1]}</div></div><div><button class="normal n">🔊 正常</button> <button class="slow sl">🐢 慢速</button></div>`;d.querySelector(".n").onclick=()=>say(x[0],.88);d.querySelector(".sl").onclick=()=>say(x[0],.62);list.appendChild(d)});
+ c.appendChild(s);
+});
+document.getElementById("stop").onclick=()=>speechSynthesis.cancel();
+document.getElementById("playAll").onclick=async()=>{speechSynthesis.cancel();const arr=lessons.flatMap(g=>g.examples.map(x=>x[0]));for(const t of arr){await new Promise(res=>{const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.82;u.onend=()=>setTimeout(res,450);u.onerror=res;speechSynthesis.speak(u)})}};
+</script></body></html>

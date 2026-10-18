@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 個常見食物英文單字</title>
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--primary:#3157d5;--text:#1f2937;--muted:#64748b;--border:#e1e7f0}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;background:linear-gradient(#eef3ff,#f8fafc 320px);color:var(--text)}
+header{text-align:center;padding:38px 18px 24px}
+h1{margin:0 0 10px;font-size:clamp(28px,5vw,46px);color:#1e3a8a}
+header p{color:var(--muted);line-height:1.7}
+.controls{position:sticky;top:0;z-index:5;background:rgba(246,248,252,.94);backdrop-filter:blur(10px);padding:12px 16px;border-bottom:1px solid var(--border)}
+.control-inner{max-width:1180px;margin:auto;display:flex;gap:10px;flex-wrap:wrap}
+input{flex:1;min-width:220px;padding:12px 15px;border:1px solid var(--border);border-radius:14px;font-size:16px}
+button{border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
+.action{background:#fff;border:1px solid var(--border)}
+.grid{width:min(1180px,calc(100% - 28px));margin:22px auto 48px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;display:grid;grid-template-columns:100px 1fr;gap:16px;box-shadow:0 8px 22px rgba(31,41,55,.07)}
+.visual{width:100px;height:100px;border-radius:20px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;font-size:52px}
+.wordrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.word{margin:0;font-size:26px;color:#1e3a8a}
+.speak{background:var(--primary);color:white}
+.speak.playing{background:#0f9d75}
+.meaning{font-weight:800;margin:8px 0}
+.example{border-top:1px dashed var(--border);padding-top:10px;line-height:1.55}
+.example p{margin:3px 0}
+.zh{color:var(--muted)}
+.empty{grid-column:1/-1;text-align:center;padding:50px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);padding-bottom:30px}
+@media(max-width:780px){.grid{grid-template-columns:1fr}}
+@media(max-width:480px){.card{grid-template-columns:1fr;text-align:center}.visual{margin:auto}.wordrow{justify-content:center}.example{text-align:left}}
+</style>
+</head>
+<body>
+<header>
+<h1>🍽️ 100 個常見食物英文單字</h1>
+<p>可搜尋英文或中文。點擊「🔊 發音」按鈕時，單字只播放一次。</p>
+</header>
+<div class="controls">
+<div class="control-inner">
+<input id="search" placeholder="搜尋單字，例如 apple、蘋果、雞肉">
+<button class="action" onclick="shuffleCards()">🔀 隨機排列</button>
+<button class="action" onclick="stopSpeech()">⏹ 停止發音</button>
+</div>
+</div>
+<main class="grid" id="grid"></main>
+<footer>建議使用 Safari、Chrome 或 Edge 開啟，並確認裝置音量已開啟。</footer>
+<script>
+const originalWords = [{"word": "apple", "meaning": "蘋果", "icon": "🍎", "example": "I eat an apple after lunch.", "translation": "我午餐後吃一顆蘋果。"}, {"word": "banana", "meaning": "香蕉", "icon": "🍌", "example": "She puts a banana in her bag.", "translation": "她把一根香蕉放進包包。"}, {"word": "orange", "meaning": "柳橙", "icon": "🍊", "example": "This orange is sweet and juicy.", "translation": "這顆柳橙又甜又多汁。"}, {"word": "grape", "meaning": "葡萄", "icon": "🍇", "example": "These grapes are very fresh.", "translation": "這些葡萄很新鮮。"}, {"word": "watermelon", "meaning": "西瓜", "icon": "🍉", "example": "We eat watermelon in summer.", "translation": "我們夏天吃西瓜。"}, {"word": "strawberry", "meaning": "草莓", "icon": "🍓", "example": "The strawberry tastes sweet.", "translation": "這顆草莓吃起來很甜。"}, {"word": "blueberry", "meaning": "藍莓", "icon": "🫐", "example": "I add blueberries to my yogurt.", "translation": "我把藍莓加進優格裡。"}, {"word": "pineapple", "meaning": "鳳梨", "icon": "🍍", "example": "Pineapple is popular in Taiwan.", "translation": "鳳梨在台灣很受歡迎。"}, {"word": "mango", "meaning": "芒果", "icon": "🥭", "example": "This mango is soft and sweet.", "translation": "這顆芒果又軟又甜。"}, {"word": "peach", "meaning": "桃子", "icon": "🍑", "example": "The peach smells wonderful.", "translation": "這顆桃子聞起來很香。"}, {"word": "pear", "meaning": "梨子", "icon": "🍐", "example": "He cuts the pear into pieces.", "translation": "他把梨子切成小塊。"}, {"word": "lemon", "meaning": "檸檬", "icon": "🍋", "example": "Add some lemon to the water.", "translation": "在水裡加一些檸檬。"}, {"word": "cherry", "meaning": "櫻桃", "icon": "🍒", "example": "She puts a cherry on the cake.", "translation": "她在蛋糕上放一顆櫻桃。"}, {"word": "kiwi", "meaning": "奇異果", "icon": "🥝", "example": "Kiwi is rich in vitamin C.", "translation": "奇異果富含維生素 C。"}, {"word": "coconut", "meaning": "椰子", "icon": "🥥", "example": "We drank fresh coconut water.", "translation": "我們喝了新鮮椰子水。"}, {"word": "avocado", "meaning": "酪梨", "icon": "🥑", "example": "I eat avocado with toast.", "translation": "我把酪梨配吐司吃。"}, {"word": "tomato", "meaning": "番茄", "icon": "🍅", "example": "The tomato is red and ripe.", "translation": "這顆番茄又紅又熟。"}, {"word": "potato", "meaning": "馬鈴薯", "icon": "🥔", "example": "We need potatoes for the soup.", "translation": "我們煮湯需要馬鈴薯。"}, {"word": "carrot", "meaning": "紅蘿蔔", "icon": "🥕", "example": "Carrots are good for your eyes.", "translation": "紅蘿蔔對眼睛有益。"}, {"word": "corn", "meaning": "玉米", "icon": "🌽", "example": "The corn is hot and sweet.", "translation": "這根玉米又熱又甜。"}, {"word": "broccoli", "meaning": "花椰菜", "icon": "🥦", "example": "Broccoli is a healthy vegetable.", "translation": "花椰菜是健康的蔬菜。"}, {"word": "lettuce", "meaning": "生菜", "icon": "🥬", "example": "Add more lettuce to my sandwich.", "translation": "請在我的三明治裡多加生菜。"}, {"word": "cabbage", "meaning": "高麗菜", "icon": "🥬", "example": "My mother cooks cabbage for dinner.", "translation": "我媽媽晚餐煮高麗菜。"}, {"word": "cucumber", "meaning": "小黃瓜", "icon": "🥒", "example": "The cucumber is cool and crunchy.", "translation": "小黃瓜清爽又脆。"}, {"word": "onion", "meaning": "洋蔥", "icon": "🧅", "example": "The onion makes my eyes water.", "translation": "洋蔥讓我流眼淚。"}, {"word": "garlic", "meaning": "大蒜", "icon": "🧄", "example": "Garlic gives the soup more flavor.", "translation": "大蒜讓湯更有味道。"}, {"word": "mushroom", "meaning": "蘑菇", "icon": "🍄", "example": "I like mushrooms on pizza.", "translation": "我喜歡披薩上的蘑菇。"}, {"word": "eggplant", "meaning": "茄子", "icon": "🍆", "example": "The eggplant is cooked with garlic.", "translation": "這道茄子是用大蒜煮的。"}, {"word": "pepper", "meaning": "甜椒", "icon": "🫑", "example": "She cuts the pepper into strips.", "translation": "她把甜椒切成條狀。"}, {"word": "chili", "meaning": "辣椒", "icon": "🌶️", "example": "This chili is very spicy.", "translation": "這根辣椒非常辣。"}, {"word": "rice", "meaning": "米飯", "icon": "🍚", "example": "We eat rice with every meal.", "translation": "我們每餐都吃飯。"}, {"word": "bread", "meaning": "麵包", "icon": "🍞", "example": "I bought fresh bread this morning.", "translation": "我今天早上買了新鮮麵包。"}, {"word": "toast", "meaning": "吐司", "icon": "🍞", "example": "He eats toast with butter.", "translation": "他吃塗奶油的吐司。"}, {"word": "noodles", "meaning": "麵條", "icon": "🍜", "example": "These noodles are delicious.", "translation": "這些麵條很好吃。"}, {"word": "pasta", "meaning": "義大利麵", "icon": "🍝", "example": "We ordered tomato pasta.", "translation": "我們點了番茄義大利麵。"}, {"word": "pizza", "meaning": "披薩", "icon": "🍕", "example": "The children love cheese pizza.", "translation": "孩子們喜歡起司披薩。"}, {"word": "hamburger", "meaning": "漢堡", "icon": "🍔", "example": "I ordered a hamburger and fries.", "translation": "我點了一個漢堡和薯條。"}, {"word": "sandwich", "meaning": "三明治", "icon": "🥪", "example": "This sandwich has chicken inside.", "translation": "這個三明治裡有雞肉。"}, {"word": "hot dog", "meaning": "熱狗", "icon": "🌭", "example": "He bought a hot dog at the game.", "translation": "他在比賽現場買了一個熱狗。"}, {"word": "taco", "meaning": "塔可", "icon": "🌮", "example": "The taco is filled with beef.", "translation": "這個塔可裡包著牛肉。"}, {"word": "burrito", "meaning": "墨西哥捲餅", "icon": "🌯", "example": "I had a chicken burrito for lunch.", "translation": "我午餐吃了雞肉墨西哥捲餅。"}, {"word": "dumpling", "meaning": "水餃", "icon": "🥟", "example": "We made dumplings together.", "translation": "我們一起包水餃。"}, {"word": "fried rice", "meaning": "炒飯", "icon": "🍛", "example": "This fried rice has shrimp.", "translation": "這份炒飯裡有蝦子。"}, {"word": "porridge", "meaning": "粥", "icon": "🥣", "example": "I eat porridge when I feel sick.", "translation": "我不舒服時會吃粥。"}, {"word": "soup", "meaning": "湯", "icon": "🍲", "example": "The soup is warm and tasty.", "translation": "這碗湯溫暖又好喝。"}, {"word": "salad", "meaning": "沙拉", "icon": "🥗", "example": "She eats a salad for lunch.", "translation": "她午餐吃沙拉。"}, {"word": "steak", "meaning": "牛排", "icon": "🥩", "example": "The steak is cooked medium.", "translation": "這塊牛排是五分熟。"}, {"word": "beef", "meaning": "牛肉", "icon": "🥩", "example": "We cooked beef with onions.", "translation": "我們用洋蔥炒牛肉。"}, {"word": "pork", "meaning": "豬肉", "icon": "🍖", "example": "This dish is made with pork.", "translation": "這道菜是用豬肉做的。"}, {"word": "chicken", "meaning": "雞肉", "icon": "🍗", "example": "The chicken is tender and juicy.", "translation": "這塊雞肉又嫩又多汁。"}, {"word": "duck", "meaning": "鴨肉", "icon": "🦆", "example": "Roast duck is very popular.", "translation": "烤鴨很受歡迎。"}, {"word": "fish", "meaning": "魚", "icon": "🐟", "example": "We had grilled fish for dinner.", "translation": "我們晚餐吃烤魚。"}, {"word": "salmon", "meaning": "鮭魚", "icon": "🐟", "example": "Salmon is my favorite fish.", "translation": "鮭魚是我最喜歡的魚。"}, {"word": "tuna", "meaning": "鮪魚", "icon": "🐟", "example": "This sandwich has tuna inside.", "translation": "這個三明治裡有鮪魚。"}, {"word": "shrimp", "meaning": "蝦子", "icon": "🦐", "example": "The shrimp is fresh and sweet.", "translation": "這些蝦子新鮮又鮮甜。"}, {"word": "crab", "meaning": "螃蟹", "icon": "🦀", "example": "We ate crab by the sea.", "translation": "我們在海邊吃螃蟹。"}, {"word": "lobster", "meaning": "龍蝦", "icon": "🦞", "example": "The lobster was very expensive.", "translation": "這隻龍蝦非常昂貴。"}, {"word": "squid", "meaning": "魷魚", "icon": "🦑", "example": "Grilled squid smells delicious.", "translation": "烤魷魚聞起來很香。"}, {"word": "egg", "meaning": "雞蛋", "icon": "🥚", "example": "I eat an egg for breakfast.", "translation": "我早餐吃一顆雞蛋。"}, {"word": "cheese", "meaning": "起司", "icon": "🧀", "example": "Add some cheese to the pasta.", "translation": "在義大利麵裡加一些起司。"}, {"word": "milk", "meaning": "牛奶", "icon": "🥛", "example": "The child drinks milk every day.", "translation": "這個孩子每天喝牛奶。"}, {"word": "yogurt", "meaning": "優格", "icon": "🥣", "example": "I eat yogurt with fruit.", "translation": "我把優格配水果吃。"}, {"word": "butter", "meaning": "奶油", "icon": "🧈", "example": "Spread butter on the bread.", "translation": "把奶油抹在麵包上。"}, {"word": "cream", "meaning": "鮮奶油", "icon": "🍦", "example": "The cake is covered with cream.", "translation": "這個蛋糕上覆蓋著鮮奶油。"}, {"word": "ice cream", "meaning": "冰淇淋", "icon": "🍨", "example": "We had ice cream after dinner.", "translation": "我們晚餐後吃了冰淇淋。"}, {"word": "cake", "meaning": "蛋糕", "icon": "🍰", "example": "She made a chocolate cake.", "translation": "她做了一個巧克力蛋糕。"}, {"word": "cookie", "meaning": "餅乾", "icon": "🍪", "example": "I ate two cookies with tea.", "translation": "我配茶吃了兩片餅乾。"}, {"word": "chocolate", "meaning": "巧克力", "icon": "🍫", "example": "This chocolate is not too sweet.", "translation": "這塊巧克力不會太甜。"}, {"word": "candy", "meaning": "糖果", "icon": "🍬", "example": "The child wants some candy.", "translation": "這個孩子想吃一些糖果。"}, {"word": "doughnut", "meaning": "甜甜圈", "icon": "🍩", "example": "He bought a chocolate doughnut.", "translation": "他買了一個巧克力甜甜圈。"}, {"word": "pie", "meaning": "派", "icon": "🥧", "example": "My grandmother makes apple pie.", "translation": "我奶奶會做蘋果派。"}, {"word": "pudding", "meaning": "布丁", "icon": "🍮", "example": "The pudding is smooth and sweet.", "translation": "這個布丁滑順又香甜。"}, {"word": "honey", "meaning": "蜂蜜", "icon": "🍯", "example": "I put honey in my tea.", "translation": "我在茶裡加蜂蜜。"}, {"word": "jam", "meaning": "果醬", "icon": "🍓", "example": "She spreads jam on her toast.", "translation": "她把果醬抹在吐司上。"}, {"word": "sugar", "meaning": "糖", "icon": "🧂", "example": "Do not add too much sugar.", "translation": "不要加太多糖。"}, {"word": "salt", "meaning": "鹽", "icon": "🧂", "example": "The soup needs a little salt.", "translation": "這碗湯需要加一點鹽。"}, {"word": "peppercorn", "meaning": "胡椒", "icon": "🫙", "example": "Add some pepper to the eggs.", "translation": "在雞蛋上加一些胡椒。"}, {"word": "soy sauce", "meaning": "醬油", "icon": "🫙", "example": "Dip the dumpling in soy sauce.", "translation": "把水餃沾醬油。"}, {"word": "ketchup", "meaning": "番茄醬", "icon": "🍅", "example": "He puts ketchup on his fries.", "translation": "他把番茄醬加在薯條上。"}, {"word": "mustard", "meaning": "芥末醬", "icon": "🌭", "example": "Would you like mustard on your hot dog?", "translation": "你的熱狗要加芥末醬嗎？"}, {"word": "mayonnaise", "meaning": "美乃滋", "icon": "🥪", "example": "This sandwich has mayonnaise.", "translation": "這個三明治裡有美乃滋。"}, {"word": "oil", "meaning": "食用油", "icon": "🫗", "example": "Heat the oil in the pan.", "translation": "把鍋裡的油加熱。"}, {"word": "vinegar", "meaning": "醋", "icon": "🫙", "example": "Add a little vinegar to the salad.", "translation": "在沙拉裡加一點醋。"}, {"word": "coffee", "meaning": "咖啡", "icon": "☕", "example": "I drink coffee every morning.", "translation": "我每天早上喝咖啡。"}, {"word": "tea", "meaning": "茶", "icon": "🍵", "example": "Would you like some hot tea?", "translation": "你想喝一些熱茶嗎？"}, {"word": "juice", "meaning": "果汁", "icon": "🧃", "example": "The orange juice is fresh.", "translation": "這杯柳橙汁很新鮮。"}, {"word": "water", "meaning": "水", "icon": "💧", "example": "Please drink more water.", "translation": "請多喝水。"}, {"word": "soda", "meaning": "汽水", "icon": "🥤", "example": "He ordered a soda with lunch.", "translation": "他午餐點了一杯汽水。"}, {"word": "beer", "meaning": "啤酒", "icon": "🍺", "example": "They shared a cold beer.", "translation": "他們一起喝了一杯冰啤酒。"}, {"word": "wine", "meaning": "葡萄酒", "icon": "🍷", "example": "This wine goes well with steak.", "translation": "這款葡萄酒很適合配牛排。"}, {"word": "breakfast", "meaning": "早餐", "icon": "🍳", "example": "Breakfast is my favorite meal.", "translation": "早餐是我最喜歡的一餐。"}, {"word": "lunch", "meaning": "午餐", "icon": "🍱", "example": "We had lunch at a small café.", "translation": "我們在一間小咖啡館吃午餐。"}, {"word": "dinner", "meaning": "晚餐", "icon": "🍽️", "example": "Dinner will be ready at six.", "translation": "晚餐六點會準備好。"}, {"word": "snack", "meaning": "點心", "icon": "🍿", "example": "I packed a snack for work.", "translation": "我帶了一份點心去上班。"}, {"word": "cereal", "meaning": "早餐穀片", "icon": "🥣", "example": "The children eat cereal with milk.", "translation": "孩子們把早餐穀片配牛奶吃。"}, {"word": "oatmeal", "meaning": "燕麥粥", "icon": "🥣", "example": "Oatmeal is warm and filling.", "translation": "燕麥粥溫暖又有飽足感。"}, {"word": "pancake", "meaning": "鬆餅", "icon": "🥞", "example": "We had pancakes with honey.", "translation": "我們吃了淋蜂蜜的鬆餅。"}, {"word": "waffle", "meaning": "格子鬆餅", "icon": "🧇", "example": "The waffle is crispy outside.", "translation": "這個格子鬆餅外皮很酥脆。"}, {"word": "sausage", "meaning": "香腸", "icon": "🌭", "example": "The sausage is hot and juicy.", "translation": "這根香腸又熱又多汁。"}, {"word": "bacon", "meaning": "培根", "icon": "🥓", "example": "I like bacon with eggs.", "translation": "我喜歡培根配雞蛋。"}];
+let currentWords = [...originalWords];
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+
+function render(list){
+  grid.innerHTML="";
+  if(!list.length){
+    grid.innerHTML='<div class="empty">找不到符合的食物單字。</div>';
+    return;
+  }
+  list.forEach((item,index)=>{
+    const card=document.createElement("article");
+    card.className="card";
+    card.innerHTML=`
+      <div class="visual" role="img" aria-label="${item.meaning}">${item.icon}</div>
+      <div>
+        <div class="wordrow">
+          <h2 class="word">${item.word}</h2>
+          <button class="speak" data-index="${index}">🔊 發音</button>
+        </div>
+        <p class="meaning">中文：${item.meaning}</p>
+        <div class="example">
+          <p><strong>例句：</strong>${item.example}</p>
+          <p class="zh"><strong>中文：</strong>${item.translation}</p>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  document.querySelectorAll(".speak").forEach(btn=>{
+    btn.addEventListener("click",()=>speakOnce(list[Number(btn.dataset.index)].word,btn));
+  });
+}
+
+function getEnglishVoice(){
+  const voices=speechSynthesis.getVoices();
+  return voices.find(v=>v.lang==="en-US")||voices.find(v=>v.lang.startsWith("en"))||null;
+}
+
+function speakOnce(text,button){
+  if(!("speechSynthesis" in window)){
+    alert("此瀏覽器不支援語音播放。");
+    return;
+  }
+  speechSynthesis.cancel();
+  document.querySelectorAll(".speak").forEach(b=>{b.classList.remove("playing");b.textContent="🔊 發音";});
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="en-US";
+  u.rate=.82;
+  const voice=getEnglishVoice();
+  if(voice)u.voice=voice;
+  button.classList.add("playing");
+  button.textContent="🔈 播放中";
+  u.onend=u.onerror=()=>{button.classList.remove("playing");button.textContent="🔊 發音";};
+  speechSynthesis.speak(u);
+}
+
+function stopSpeech(){
+  if("speechSynthesis" in window)speechSynthesis.cancel();
+  document.querySelectorAll(".speak").forEach(b=>{b.classList.remove("playing");b.textContent="🔊 發音";});
+}
+
+function shuffleCards(){
+  stopSpeech();
+  currentWords=[...currentWords].sort(()=>Math.random()-.5);
+  render(currentWords);
+}
+
+search.addEventListener("input",()=>{
+  const q=search.value.trim().toLowerCase();
+  currentWords=originalWords.filter(x=>x.word.toLowerCase().includes(q)||x.meaning.includes(q));
+  render(currentWords);
+});
+
+speechSynthesis.onvoiceschanged=getEnglishVoice;
+render(currentWords);
+</script>
+</body>
+</html>
