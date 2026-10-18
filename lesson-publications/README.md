@@ -15,18 +15,21 @@ Each new lesson requires TWO repository files:
 Once both files are committed to `main`, GitHub Actions publishes the lesson's
 title, category and public URL to the Firestore `publishedLessons` collection.
 
-## One-time owner setup
+## One-time owner setup (keyless OIDC)
 
-In your GitHub repository: Settings -> Secrets and variables -> Actions ->
-New repository secret; Name: `FIREBASE_SERVICE_ACCOUNT_JSON`.
-The value is the JSON key of a *dedicated* Firebase/Google Cloud service account
-restricted to writing the Firestore lesson documents in the project
-`english-learning-app-461d8`. Limit who can change workflows and metadata;
-a GitHub Actions secret permits the workflow to act with its Google Cloud roles.
+The repository uses GitHub Actions OIDC and Google Workload Identity Federation.
+No service-account JSON key or GitHub secret is needed.
 
-Generate the key using the Google Cloud console; NEVER commit or paste a key in
-a conversation, issue, code file, or public page. Prefer short-lived
-Workload Identity Federation in a future version.
+- Workload Identity Pool: `github-actions-pool`
+- Provider: `github-actions`
+- Service account: `english-learning-publisher@english-learning-app-461d8.iam.gserviceaccount.com`
+- Project number: `781857177241`
+
+The provider must restrict access to the trusted GitHub repository and `main`
+branch; the service account must grant `roles/iam.workloadIdentityUser` to
+that repository's `google.subject` identity. It currently has `Cloud Datastore
+User`, which provides broader Firestore permissions than one collection.
+Protect write access to the GitHub `main` branch and the workflow files.
 
 GitHub Actions uses a server credential, so Firestore's client-side security
 rules are not changed. The existing visitor read access remains the same.
