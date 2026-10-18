@@ -21,4 +21,13 @@ function toggle(a,w){a.includes(w)?a.splice(a.indexOf(w),1):a.push(w);save();fil
 function quizMode(){mode="quiz";target=words[Math.floor(Math.random()*words.length)];let opts=[target,...words.filter(x=>x!==target).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5);modalBody.innerHTML=`<h2>選出正確中文</h2><div class="question">${target.word}<br><small>${target.root}＝${target.rootMeaning}</small></div><div class="answers">${opts.map((x,i)=>`<button class="answer" data-i="${i}">${x.zh}</button>`).join("")}</div>`;modalBody.querySelectorAll(".answer").forEach((b,i)=>b.onclick=()=>{modalBody.querySelectorAll(".answer").forEach(z=>z.disabled=true);b.classList.add(opts[i]===target?"correct":"wrong")})}
 function flashMode(){mode="flash";target=words[Math.floor(Math.random()*words.length)];modalBody.innerHTML=`<div class="flash"><div>${target.root}｜${target.rootMeaning}</div><div class="bigword">${target.word}</div><button id="say">🔊 單字</button><div id="ans" class="hidden"><h3>${target.zh}</h3><p>${target.breakdown}</p><p>${target.example}</p><p>${target.translation}</p></div><button id="reveal">顯示答案</button></div>`;say.onclick=()=>speak(target.word);reveal.onclick=()=>ans.classList.remove("hidden")}
 q.oninput=filter;root.onchange=filter;status.onchange=filter;shuffle.onclick=()=>{shown.sort(()=>Math.random()-.5);render(shown)};quiz.onclick=()=>{modal.classList.add("show");quizMode()};flash.onclick=()=>{modal.classList.add("show");flashMode()};close.onclick=()=>modal.classList.remove("show");next.onclick=()=>mode==="quiz"?quizMode():flashMode();stats();render(words);
-</script></body></html>
+</script>
+<!-- English Learning: back to app homepage (navigation only) -->
+<style id="el-back-style">
+#el-return-home { position:fixed !important; right:14px !important; bottom:calc(16px + env(safe-area-inset-bottom, 0px)) !important; z-index:2147483647 !important; display:inline-flex !important; align-items:center !important; justify-content:center !important; gap:6px !important; padding:12px 16px !important; border-radius:999px !important; background:#234db4 !important; color:white !important; font:600 15px/1.3 -apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif !important; text-decoration:none !important; box-shadow:0 4px 18px rgba(0,0,0,.28) !important; border:1px solid rgba(255,255,255,.35) !important; width:auto !important; height:auto !important; max-width:calc(100vw - 28px) !important; box-sizing:border-box !important; }
+#el-return-home:focus-visible { outline:3px solid #ffcf33 !important; outline-offset:3px !important; }
+@media print { #el-return-home { display:none !important; } }
+</style>
+<a id="el-return-home" href="./" aria-label="返回 English Learning 教材首頁">← 返回教材首頁</a>
+<!-- End English Learning back button -->
+</body></html>

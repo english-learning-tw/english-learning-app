@@ -27,4 +27,13 @@ function openFlash(){flashModal.classList.add("show");nextFlash()}
 function nextFlash(){let x=words[Math.floor(Math.random()*words.length)];flashBody.innerHTML=`<div class="flash"><div class="bigicon">${x.icon}</div><div class="bigword">${x.word}</div><button class="speak" onclick="speakOnce('${x.word.replaceAll("'","\'")}',this)">🔊 發音</button><div class="reveal" id="reveal"><h3>${x.meaning}</h3><p>${x.example}</p><p class="zh">${x.translation}</p></div></div>`}
 function revealCard(){reveal?.classList.add("show")}function closeModal(id){document.getElementById(id).classList.remove("show");stopSpeech()}
 search.oninput=applyFilters;category.onchange=applyFilters;filter.onchange=applyFilters;stats();render(words);
-</script></body></html>
+</script>
+<!-- English Learning: back to app homepage (navigation only) -->
+<style id="el-back-style">
+#el-return-home { position:fixed !important; right:14px !important; bottom:calc(16px + env(safe-area-inset-bottom, 0px)) !important; z-index:2147483647 !important; display:inline-flex !important; align-items:center !important; justify-content:center !important; gap:6px !important; padding:12px 16px !important; border-radius:999px !important; background:#234db4 !important; color:white !important; font:600 15px/1.3 -apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif !important; text-decoration:none !important; box-shadow:0 4px 18px rgba(0,0,0,.28) !important; border:1px solid rgba(255,255,255,.35) !important; width:auto !important; height:auto !important; max-width:calc(100vw - 28px) !important; box-sizing:border-box !important; }
+#el-return-home:focus-visible { outline:3px solid #ffcf33 !important; outline-offset:3px !important; }
+@media print { #el-return-home { display:none !important; } }
+</style>
+<a id="el-return-home" href="./" aria-label="返回 English Learning 教材首頁">← 返回教材首頁</a>
+<!-- End English Learning back button -->
+</body></html>
