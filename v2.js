@@ -13,27 +13,41 @@ const q=$('librarySearch').value.toLowerCase(),cat=$('categoryFilter').value;let
 const wq=$('wordSearch').value.toLowerCase(),wc=$('wordCategory').value;const filteredWords=[...new Map([...(window.cloudRemoteWords||[]),...words].map(x=>[x.id,x])).values()].filter(x=>(x.en+' '+x.zh+' '+x.category).toLowerCase().includes(wq)&&(!wc||x.category===wc));$('wordItems').replaceChildren();for(const x of filteredWords){let d=document.createElement('div');d.className='panel';d.innerHTML=`<div class="word">${esc(x.en)}</div><div class="muted">${esc(x.ipa)}　${esc(x.category)}</div><p><b>${esc(x.zh)}</b></p><p>${esc(x.example)}<br><span class="muted">${esc(x.translation)}</span></p>`;let b=document.createElement('button');b.textContent='🔊 單字發音';b.onclick=()=>speak(x.en);let e=document.createElement('button');e.textContent='🔊 例句';e.disabled=!x.example;e.onclick=()=>speak(x.example);d.append(b,' ',e);$('wordItems').append(d)}if(!filteredWords.length)$('wordItems').innerHTML='<div class="empty">尚無自訂單字。請到管理後台新增。<br>內建 HTML 教材的單字尚未轉入統一單字庫。</div>';
 $('adminWords').replaceChildren();for(const x of words){let d=document.createElement('div');d.className='tile';let t=document.createElement('div');t.innerHTML=`<strong>${esc(x.en)} — ${esc(x.zh)}</strong><small>${esc(x.category)}</small>`;let a=document.createElement('div');a.className='actions';let b=document.createElement('button');b.textContent='編輯';b.onclick=()=>editWord(x);let c=document.createElement('button');c.textContent='刪除';c.className='red';c.onclick=async()=>{if(confirm('確定刪除這筆單字？')){await tx('words','delete',x.id);await reload()}};a.append(b,c);d.append(t,a);$('adminWords').append(d)}if(!words.length)$('adminWords').innerHTML='<p class="muted">尚無自訂單字</p>'}
 function speak(text){if(!('speechSynthesis' in window))return toast('此裝置不支援瀏覽器語音');speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.82;speechSynthesis.speak(u)}
-
-async function openLesson(x){
-  const frame=$('frame');
-  frame.removeAttribute('src');
-  frame.srcdoc='';
-  $('viewerTitle').textContent=x.title;
-  $('viewer').classList.remove('hide');
-
-  if(x.html!=null){
-    frame.srcdoc=x.html;
-  }else if(x.cloud&&window.cloudApi){
-    try{
-      frame.srcdoc=await window.cloudApi.loadHtml(x);
-    }catch(e){
-      toast('無法取得雲端教材：'+e.message);
+// Open hosted lessons as standalone pages so their original scripts and speech work.
+// Keep locally imported, trusted HTML in the existing preview window.
+async function openLesson(x) {
+  try {
+    if (x.file || x.url) {
+      const target = new URL(x.file || x.url, location.href);
+      if (target.protocol !== 'https:' && target.protocol !== 'http:') {
+        throw new Error('Unsupported lesson URL');
+      }
+      if (target.origin !== location.origin) {
+        throw new Error('只允許開啟本站託管的教材');
+      }
+      // Navigation is triggered immediately from the button click; do not await.
+      window.open(target.href, '_blank', 'noopener,noreferrer');
+      return;
     }
-  }else{
-    frame.src=x.file;
+
+    const frame = $('frame');
+    frame.removeAttribute('src');
+    frame.srcdoc = '';
+    $('viewerTitle').textContent = x.title || '教材';
+    $('viewer').classList.remove('hide');
+    if (x.html != null) {
+      frame.srcdoc = x.html;
+    } else if (x.cloud && window.cloudApi) {
+      frame.srcdoc = await window.cloudApi.loadHtml(x);
+    } else {
+      toast('找不到這份教材的內容');
+      $('viewer').classList.add('hide');
+    }
+  } catch (error) {
+    console.error('Failed to open lesson', error);
+    toast('開啟教材失敗：' + error.message);
   }
 }
-
 $('closeViewer').onclick=()=>{$('frame').srcdoc='';$('frame').removeAttribute('src');$('viewer').classList.add('hide')};
 function editWord(x){for(const id of ['en','zh','ipa','example','translation'])$(id).value=x[id]||'';$('cat').value=x.category||'';$('editId').value=x.id;document.querySelector('[data-tab="admin"]').click();$('wordForm').scrollIntoView({behavior:'smooth'})}
 function clearWord(){$('wordForm').reset();$('editId').value=''}$('clearWord').onclick=clearWord;
