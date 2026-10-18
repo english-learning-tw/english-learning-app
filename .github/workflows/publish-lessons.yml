@@ -22,6 +22,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Diagnose GitHub OIDC identity (claims only; never print token)
+        env:
+          EXPECTED_SUB: "repo:english-learning-tw/english-learning-app:ref:refs/heads/main"
+          EXPECTED_REPO: "english-learning-tw/english-learning-app"
+        run: |
+          python - <<'PY'
+          import base64
+          import json
+          import os
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+
+          provider = ("https://iam.googleapis.com/projects/781857177241/"
+                      "locations/global/workloadIdentityPools/github-actions-pool/"
+                      "providers/github-actions")
+          url = os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
+          url += ("&" if "?" in url else "?") + urlencode({"audience": provider})
+          request = Request(url, headers={
+              "Authorization": "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
+          })
+          with urlopen(request, timeout=20) as response:
+              jwt = json.load(response)["value"]
+          payload = jwt.split(".")[1]
+          payload += "=" * (-len(payload) % 4)
+          claims = json.loads(base64.urlsafe_b64decode(payload))
+          # Only print non-sensitive identity metadata; NEVER print the JWT.
+          for field in ("iss", "aud", "sub", "repository", "ref", "repository_id", "repository_owner_id", "event_name"):
+              print(f"{field}: {claims.get(field, '(not present)')}")
+          print("subject_matches_expected:", claims.get("sub") == os.environ["EXPECTED_SUB"])
+          print("repository_matches_expected:", claims.get("repository") == os.environ["EXPECTED_REPO"])
+          if claims.get("sub") != os.environ["EXPECTED_SUB"]:
+              raise SystemExit("GitHub OIDC subject does not match the service-account IAM principal")
+          PY
       - name: Authenticate to Google Cloud (OIDC, no private key)
         uses: google-github-actions/auth@v2
         with:
