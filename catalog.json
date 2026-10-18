@@ -72,14 +72,6 @@
     "category": "既有教材"
   },
   {
-    "id": "builtin:english_vocabulary_pronunciation.html",
-    "title": "English Vocabulary Pronunciation",
-    "file": "english_vocabulary_pronunciation.html",
-    "type": "html",
-    "builtin": true,
-    "category": "既有教材"
-  },
-  {
     "id": "builtin:english_word_roots_150_complete.html",
     "title": "English Word Roots 150 Complete",
     "file": "english_word_roots_150_complete.html",
