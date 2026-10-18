@@ -1,6 +1,6 @@
 
 window.FIREBASE_CONFIG = {
-  apiKey: "AIzaSyBtAGryyGLikKHCQR75-bm1mvOg_tQFl10",
+  apiKey: "AIzaSyBtAGryyGliKkHCQR75-bm1mvOg_tQF1l0",
   authDomain: "english-learning-app-461d8.firebaseapp.com",
   projectId: "english-learning-app-461d8",
   storageBucket: "english-learning-app-461d8.firebasestorage.app",
