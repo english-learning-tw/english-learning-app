@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LESSONS = ROOT / "lesson-publications"
 PROJECT_ID = "english-learning-app-461d8"
 BASE_URL = "https://english-learning-tw.github.io/english-learning-app/"
-FILE_PATTERN = re.compile(r"^[A-Za-z0-9_-]+\\.html?$")
+FILE_PATTERN = re.compile(r"^[A-Za-z0-9_-]+\.html?$")
 FIELDS = ("title", "category", "url", "updatedAt", "publisherUid")
 
 
