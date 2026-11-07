@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17475e">
+<meta name="description" content="11月8日商務出差與機場交通 TOEIC 英文20單字，美式 IPA、繁體中文與中英例句，支援手機搜尋與正常／慢速英語發音。">
+<title>[11/08]主題商務出差與機場交通｜多益高頻英文20單字</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;background:#f3f8fb;color:#1a3544;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;line-height:1.55;padding-bottom:env(safe-area-inset-bottom)}
+header{background:linear-gradient(120deg,#123a58,#1a7984);color:#fff;padding:24px 16px 28px}
+.wrap{max-width:1050px;margin:0 auto}h1{font-size:clamp(22px,4.8vw,31px);line-height:1.4;margin:14px 0 8px}
+header p{font-size:14px;color:#e0f3f6;margin:0}.back{display:inline-flex;border:1px solid #c7edf17a;border-radius:10px;padding:10px 12px;color:#fff;text-decoration:none;min-height:44px;align-items:center;font-weight:700}
+main{padding:20px 15px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #d7e5eb;border-radius:14px;padding:12px}
+.search{flex:1;min-width:180px;min-height:48px;padding:10px 13px;border:1px solid #abc9d4;border-radius:10px;font-size:16px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}.stop{min-height:46px;padding:10px 12px;background:#e6f1f6;color:#1e5c74;border:1px solid #bfd4df;border-radius:10px}
+.status{color:#4d7180;font-size:14px;margin:13px 2px;min-height:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:14px}
+.card{background:#fff;border:1px solid #d9e7ed;border-radius:17px;padding:17px;box-shadow:0 5px 18px #10334c0a}
+.head{display:flex;gap:13px;align-items:center}.emoji{width:57px;height:57px;display:grid;place-items:center;background:#eaf7f7;border-radius:14px;font-size:29px;flex:none}
+.word{color:#145d79;font-weight:800;font-size:22px;overflow-wrap:anywhere}.ipa{color:#516e7c;font-size:14px;margin-top:2px}
+.meaning{font-weight:750;margin:14px 0 10px;font-size:16px}
+.example{background:#f4f9fa;border:1px solid #e5eef2;border-radius:12px;padding:12px}
+.en{font-size:15px;line-height:1.65}.tr{font-size:14px;line-height:1.65;color:#536c79;margin-top:8px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+.audio{min-height:47px;border:0;border-radius:11px;padding:8px 5px;background:#166f89;color:#fff;font-weight:750;font-size:14px}
+.audio.slow{background:#e8f3f7;color:#185e74;border:1px solid #bdd6df}
+button:focus-visible,.back:focus-visible,input:focus-visible{outline:3px solid #e8b938;outline-offset:3px}
+.empty{color:#587380;padding:38px;text-align:center}.foot{font-size:12px;color:#607d88;text-align:center;padding:23px 5px}
+@media(max-width:360px){.audio{font-size:12.5px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="./index.html">← 返回 English Learning App 首頁</a>
+<h1>[11/08]主題商務出差與機場交通｜多益高頻英文20單字</h1><p>✈️ 商務出差 × 20 單字｜🔊 美式英文語音｜🐢 慢速跟讀｜📱 iPhone 友善</p></div></header>
+<main class="wrap">
+<section class="toolbar" aria-label="單字搜尋">
+<input class="search" id="search" type="search" placeholder="搜尋英文、中文或例句…" aria-label="搜尋英文、中文或例句" autocomplete="off">
+<button type="button" class="stop" id="stop">⏹ 停止發音</button>
+</section>
+<p id="status" class="status" role="status" aria-live="polite">共 20 個單字。</p>
+<section class="grid" id="cards" aria-label="今日 TOEIC 20 單字"></section>
+<p id="empty" class="empty" hidden>找不到相符單字，請更換搜尋內容。</p>
+<p class="foot">使用裝置 Web Speech API 朗讀，選用可用的美式英語聲音；實際音質與播放支援依 iPhone 和瀏覽器而異。此為 TOEIC 情境練習，非官方詞頻排名。</p>
+</main>
+<script>
+"use strict";
+const DATA=[{"en":"itinerary","ipa":"/aɪˈtɪnəˌreri/","zh":"行程表；旅遊計畫","icon":"🗺️","ex":"The travel coordinator emailed the updated itinerary to all employees.","tr":"差旅協調人員已將更新後的行程表寄給所有員工。"},{"en":"airfare","ipa":"/ˈerfer/","zh":"機票費用","icon":"✈️","ex":"The company covers airfare for approved international business trips.","tr":"公司負擔經核准之國際出差的機票費用。"},{"en":"departure","ipa":"/dɪˈpɑːrtʃər/","zh":"出發；離境","icon":"🛫","ex":"Please arrive at the airport two hours before your scheduled departure.","tr":"請在預定起飛時間前兩小時抵達機場。"},{"en":"arrival","ipa":"/əˈraɪvəl/","zh":"抵達","icon":"🛬","ex":"Please notify the branch manager of your estimated arrival time.","tr":"請通知分公司經理您預計抵達的時間。"},{"en":"layover","ipa":"/ˈleɪˌoʊvər/","zh":"轉機停留","icon":"⏳","ex":"The flight includes a two-hour layover in Seoul.","tr":"這趟航班在首爾有兩小時的轉機停留時間。"},{"en":"terminal","ipa":"/ˈtɝːmɪnəl/","zh":"航廈；候機大樓","icon":"🏢","ex":"The airline moved its check-in counter to Terminal Two.","tr":"航空公司將報到櫃檯移至第二航廈。"},{"en":"boarding pass","ipa":"/ˈbɔːrdɪŋ pæs/","zh":"登機證","icon":"🎫","ex":"Passengers must show their boarding passes before entering the gate area.","tr":"乘客進入登機門區域前必須出示登機證。"},{"en":"passport","ipa":"/ˈpæspɔːrt/","zh":"護照","icon":"🛂","ex":"Bring your passport to the airline counter for verification.","tr":"請攜帶護照至航空公司櫃檯接受查驗。"},{"en":"visa","ipa":"/ˈviːzə/","zh":"簽證","icon":"🪪","ex":"Employees should check visa requirements before traveling overseas.","tr":"員工出國前應確認簽證要求。"},{"en":"baggage","ipa":"/ˈbæɡɪdʒ/","zh":"行李（總稱）","icon":"🧳","ex":"Please review the airline's baggage allowance before packing.","tr":"整理行李前，請先確認航空公司的行李額度。"},{"en":"carry-on","ipa":"/ˈkeri ɑːn/","zh":"隨身攜帶的行李","icon":"🎒","ex":"Keep your laptop in your carry-on during the flight.","tr":"飛行期間請將筆記型電腦放在隨身行李中。"},{"en":"destination","ipa":"/ˌdestəˈneɪʃən/","zh":"目的地","icon":"📍","ex":"Our final destination is the company's regional office in Singapore.","tr":"我們的最終目的地是公司位於新加坡的區域辦公室。"},{"en":"mileage","ipa":"/ˈmaɪlɪdʒ/","zh":"行駛里程；里程數","icon":"🚗","ex":"Record your mileage when using a personal car for business travel.","tr":"因公使用私人汽車時，請記錄行駛里程。"},{"en":"per diem","ipa":"/pər ˈdiːəm/","zh":"每日津貼；出差日支費","icon":"💵","ex":"Employees receive a per diem for meals during approved business trips.","tr":"員工在核准的出差期間可領取每日餐費津貼。"},{"en":"lodging","ipa":"/ˈlɑːdʒɪŋ/","zh":"住宿；臨時住處","icon":"🛌","ex":"The travel department arranged lodging near the convention center.","tr":"差旅部門已安排會議中心附近的住宿。"},{"en":"rebook","ipa":"/ˌriːˈbʊk/","zh":"重新訂位；改訂","icon":"🔄","ex":"The agent helped us rebook our flight after the schedule changed.","tr":"航班時刻變更後，客服人員協助我們重新訂位。"},{"en":"aisle","ipa":"/aɪl/","zh":"走道；（機艙）走道座位相關","icon":"💺","ex":"She requested an aisle seat for the long flight.","tr":"她為長途飛行要求安排走道座位。"},{"en":"embassy","ipa":"/ˈembəsi/","zh":"大使館","icon":"🏛️","ex":"Contact the nearest embassy if your travel documents are lost.","tr":"若旅行證件遺失，請聯絡最近的大使館。"},{"en":"travel insurance","ipa":"/ˈtrævəl ɪnˈʃʊrəns/","zh":"旅遊保險；差旅保險","icon":"🛡️","ex":"The travel policy recommends travel insurance for overseas assignments.","tr":"公司的差旅政策建議海外派任人員投保旅遊保險。"},{"en":"jet lag","ipa":"/ˈdʒet læɡ/","zh":"時差反應","icon":"🌙","ex":"The manager allowed extra rest time to help the team recover from jet lag.","tr":"經理安排額外休息時間，幫助團隊從時差反應中恢復。"}];
+const el=id=>document.getElementById(id);
+const synth=("speechSynthesis" in window)?window.speechSynthesis:null;
+let voices=[];
+function loadVoices(){if(synth)voices=synth.getVoices();}
+if(synth){loadVoices();if(typeof synth.addEventListener==="function")synth.addEventListener("voiceschanged",loadVoices);}
+function speak(text,slow){
+ if(!synth||typeof SpeechSynthesisUtterance==="undefined"){el("status").textContent="此瀏覽器不支援發音，請改用 iPhone Safari。";return;}
+ synth.cancel();const u=new SpeechSynthesisUtterance(text);
+ u.lang="en-US";u.rate=slow?0.64:0.98;u.pitch=1;
+ const voice=voices.find(v=>v.lang.toLowerCase().replace(/_/g,"-")==="en-us");if(voice)u.voice=voice;
+ u.onstart=()=>el("status").textContent="正在播放"+(slow?"慢速":"正常")+"英語…";
+ u.onend=()=>el("status").textContent="播放完成，可選擇其他發音按鈕。";
+ u.onerror=()=>el("status").textContent="發音失敗，請檢查裝置音量、語音設定，或改用 Safari。";
+ synth.speak(u);
+}
+function node(tag,cls,txt){let n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;}
+function audio(label,txt,slow){let b=node("button","audio"+(slow?" slow":""),label);b.type="button";b.setAttribute("aria-label",label+"："+txt);b.addEventListener("click",()=>speak(txt,slow));return b;}
+function render(){
+ const q=el("search").value.trim().toLocaleLowerCase();
+ const rows=DATA.filter(x=>[x.en,x.ipa,x.zh,x.ex,x.tr].some(t=>t.toLocaleLowerCase().includes(q)));
+ const frag=document.createDocumentFragment();
+ for(const x of rows){
+  const card=node("article","card"),h=node("div","head"),info=node("div");
+  info.append(node("div","word",x.en),node("div","ipa",x.ipa));
+  h.append(node("div","emoji",x.icon),info);
+  const example=node("div","example");
+  example.append(node("div","en",x.ex),node("div","tr",x.tr));
+  const actions=node("div","actions");
+  actions.append(audio("🔊 單字",x.en,false),audio("🐢 單字慢速",x.en,true),audio("🔊 例句",x.ex,false),audio("🐢 例句慢速",x.ex,true));
+  card.append(h,node("div","meaning",x.zh),example,actions);frag.append(card);
+ }
+ el("cards").replaceChildren(frag);
+ el("empty").hidden=rows.length>0;
+ el("status").textContent="顯示 "+rows.length+" / "+DATA.length+" 個單字。";
+}
+el("search").addEventListener("input",render);
+el("stop").addEventListener("click",()=>{if(synth)synth.cancel();el("status").textContent="已停止發音。";});
+render();
+</script>
+</body></html>
