@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16445d">
+<meta name="description" content="11/09 TOEIC 商務電子郵件與文件管理20單字，美式 IPA、中英例句、搜尋、正常與慢速英文發音。">
+<title>[11/09]主題商務電子郵件與文件管理｜多益高頻英文20單字</title>
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;color:#203747;background:#f0f6f9}
+*{box-sizing:border-box}
+body{margin:0;line-height:1.55;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+header{padding:26px 16px 29px;background:linear-gradient(116deg,#153d57,#1d7285);color:#fff}
+.wrap{max-width:1060px;margin:0 auto}
+header h1{font-size:clamp(22px,4.9vw,31px);line-height:1.38;margin:15px 0 10px}
+header p{font-size:14px;color:#e3f4f5;margin:0}
+a.back{display:inline-flex;align-items:center;min-height:45px;padding:9px 13px;border:1px solid #c8e7ed9e;color:#fff;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px}
+main{padding:16px 14px}
+.controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center;padding:12px;border-radius:15px;background:#fff;border:1px solid #d5e4e8}
+#search{font-size:16px;flex:1;min-width:180px;border:1px solid #acc8d3;padding:12px;border-radius:10px;min-height:48px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.stop{padding:10px 14px;background:#edf4f7;color:#235568;border:1px solid #c5dae1;border-radius:10px;min-height:46px;font-weight:700}
+#status{margin:12px 2px;color:#4a7080;font-size:14px;min-height:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,308px),1fr));gap:14px}
+.card{border-radius:16px;background:#fff;border:1px solid #d7e6eb;box-shadow:0 3px 13px #173b5008;padding:17px}
+.head{display:flex;align-items:center;gap:12px}
+.emoji{display:grid;place-items:center;flex:none;background:#e8f6f8;border-radius:14px;width:58px;height:58px;font-size:29px}
+.word{font-size:21px;font-weight:800;overflow-wrap:anywhere;color:#11617f}
+.ipa{font-size:14px;color:#5b7a87;margin-top:2px}
+.meaning{font-size:16px;font-weight:750;margin:13px 0 10px}
+.example{border-radius:11px;background:#f4f8fa;padding:12px;border:1px solid #e5eef0}
+.en{font-size:15px;line-height:1.65}
+.tr{margin-top:7px;font-size:14px;color:#4d6e7a}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.audio{font-size:14px;background:#196c88;color:#fff;border:0;border-radius:11px;min-height:46px;padding:8px 5px;font-weight:700}
+.audio.slow{background:#e9f4f8;color:#176179;border:1px solid #bdd9e2}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #f2af26;outline-offset:2px}
+#empty{padding:28px 6px;color:#517686;text-align:center}
+footer{padding:24px 4px;color:#587584;font-size:12px;text-align:center}
+@media(max-width:355px){.card{padding:13px}.audio{font-size:13px}.word{font-size:19px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<a class="back" href="./index.html">← 返回 English Learning App 首頁</a>
+<h1>[11/09]主題商務電子郵件與文件管理｜多益高頻英文20單字</h1>
+<p>✉️ 商務通信 × 20 單字｜🔊 美式英語｜🐢 慢速跟讀｜📱 iPhone 友善</p>
+</div></header>
+<main class="wrap">
+<div class="controls"><input id="search" type="search" autocomplete="off" aria-label="搜尋英文、中文或例句" placeholder="搜尋英文、中文或例句…"><button id="stop" class="stop" type="button">⏹ 停止發音</button></div>
+<p id="status" role="status" aria-live="polite">共 20 個單字，請點選按鈕發音。</p>
+<section id="cards" class="cards" aria-label="20 個多益商務英文單字"></section>
+<p id="empty" hidden>沒有找到相符的單字，請調整搜尋內容。</p>
+<footer>發音由瀏覽器的 Web Speech API 提供，實際美式音色依手機與瀏覽器可用語音而定。</footer>
+</main>
+<script>
+"use strict";
+const DATA=[{"en":"attachment","ipa":"/əˈtætʃmənt/","zh":"附件","icon":"📎","ex":"The revised contract is included as an attachment to this email.","tr":"修訂後的合約已作為這封電子郵件的附件附上。"},{"en":"recipient","ipa":"/rɪˈsɪpiənt/","zh":"收件人","icon":"📩","ex":"Please check the recipient's email address before sending the document.","tr":"寄送文件前，請確認收件人的電子郵件地址。"},{"en":"sender","ipa":"/ˈsendər/","zh":"寄件人","icon":"📤","ex":"The sender must include a return address on the envelope.","tr":"寄件人必須在信封上填寫回郵地址。"},{"en":"subject line","ipa":"/ˈsʌbdʒɪkt laɪn/","zh":"電子郵件主旨列","icon":"🏷️","ex":"Use a clear subject line so clients can identify the purpose of your email.","tr":"請使用清楚的主旨列，讓客戶能辨識郵件的目的。"},{"en":"correspondence","ipa":"/ˌkɔːrəˈspɑːndəns/","zh":"書信往來；通信","icon":"✉️","ex":"All correspondence with the supplier should be kept for future reference.","tr":"與供應商之間的所有書信往來都應保留供日後查閱。"},{"en":"acknowledgment","ipa":"/əkˈnɑːlɪdʒmənt/","zh":"確認收悉；收件確認","icon":"✅","ex":"Please send an acknowledgment after receiving the updated schedule.","tr":"收到更新後的時程表，請回覆確認已收到。"},{"en":"notify","ipa":"/ˈnoʊtɪfaɪ/","zh":"通知","icon":"🔔","ex":"Please notify the team immediately if the meeting location changes.","tr":"如果會議地點有變更，請立即通知團隊。"},{"en":"forward","ipa":"/ˈfɔːrwərd/","zh":"轉寄；轉發","icon":"↪️","ex":"Could you forward the payment instructions to the accounting department?","tr":"你可以把付款指示轉寄給會計部門嗎？"},{"en":"reply","ipa":"/rɪˈplaɪ/","zh":"回覆","icon":"💬","ex":"We will reply to your request by the end of the business day.","tr":"我們會在今日營業結束前回覆您的要求。"},{"en":"reminder","ipa":"/rɪˈmaɪndər/","zh":"提醒通知","icon":"⏰","ex":"I sent a reminder about the registration deadline yesterday.","tr":"我昨天寄了一封提醒報名截止日期的通知。"},{"en":"urgent","ipa":"/ˈɜːrdʒənt/","zh":"緊急的","icon":"🚨","ex":"The director marked the message as urgent because a decision was needed today.","tr":"由於今天必須做出決定，主管將這封訊息標記為緊急。"},{"en":"confidential","ipa":"/ˌkɑːnfɪˈdenʃəl/","zh":"機密的","icon":"🔒","ex":"Do not share confidential customer information outside the company.","tr":"請勿將機密的客戶資訊分享給公司外部人士。"},{"en":"draft","ipa":"/dræft/","zh":"草稿；起草","icon":"📝","ex":"Please prepare a draft of the announcement for the director's review.","tr":"請準備公告草稿供主管審閱。"},{"en":"revise","ipa":"/rɪˈvaɪz/","zh":"修訂；修改","icon":"✏️","ex":"We need to revise the report before submitting it to headquarters.","tr":"我們需要在將報告提交總部前加以修訂。"},{"en":"proofread","ipa":"/ˈpruːfriːd/","zh":"校對","icon":"🔍","ex":"Have someone proofread the proposal before emailing it to the client.","tr":"在將提案寄給客戶之前，請找人校對。"},{"en":"circulate","ipa":"/ˈsɜːrkjəleɪt/","zh":"傳閱；分送","icon":"🔄","ex":"Please circulate the updated policy to all department heads.","tr":"請將更新後的政策傳閱給所有部門主管。"},{"en":"signature","ipa":"/ˈsɪɡnətʃər/","zh":"簽名","icon":"✍️","ex":"The application requires the manager's signature before it can be processed.","tr":"這份申請表在處理之前需要經理簽名。"},{"en":"memo","ipa":"/ˈmemoʊ/","zh":"備忘錄","icon":"📄","ex":"The staff memo explains the new procedures for booking meeting rooms.","tr":"員工備忘錄說明了預訂會議室的新程序。"},{"en":"enclosure","ipa":"/ɪnˈkloʊʒər/","zh":"隨信附件；附入文件","icon":"📁","ex":"A copy of the signed agreement is included as an enclosure with the letter.","tr":"這封信附有一份已簽署的協議副本。"},{"en":"archive","ipa":"/ˈɑːrkaɪv/","zh":"歸檔；檔案庫","icon":"🗃️","ex":"Please archive completed project documents in the shared folder.","tr":"請將已結案的專案文件歸檔至共用資料夾。"}];
+const byId=id=>document.getElementById(id);
+const synth=window.speechSynthesis||null;
+let voices=[];
+function refreshVoices(){if(synth)voices=synth.getVoices();}
+if(synth){refreshVoices();if(typeof synth.addEventListener==="function")synth.addEventListener("voiceschanged",refreshVoices);}
+function speak(text,slow){
+ if(!synth||typeof SpeechSynthesisUtterance==="undefined"){byId("status").textContent="瀏覽器不支援朗讀；建議使用 iPhone Safari。";return;}
+ synth.cancel();
+ const utt=new SpeechSynthesisUtterance(text);utt.lang="en-US";utt.rate=slow?0.68:0.98;utt.pitch=1;
+ const voice=voices.find(v=>v.lang.toLowerCase().replace(/_/g,"-")==="en-us");
+ if(voice)utt.voice=voice;
+ utt.onstart=()=>{byId("status").textContent="正在播放"+(slow?"慢速":"正常")+"英語發音…";};
+ utt.onend=()=>{byId("status").textContent="播放完成，請點選其他按鈕繼續練習。";};
+ utt.onerror=()=>{byId("status").textContent="無法播放。請確認裝置音量、系統語音設定，或改用 Safari。";};
+ synth.speak(utt);
+}
+function el(tag,cls,value){const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=value;return n;}
+function audio(label,text,slow){const b=el("button","audio"+(slow?" slow":""),label);b.type="button";b.setAttribute("aria-label",label+"："+text);b.addEventListener("click",()=>speak(text,slow));return b;}
+function render(){
+ const q=byId("search").value.trim().toLocaleLowerCase();
+ const match=DATA.filter(x=>[x.en,x.ipa,x.zh,x.ex,x.tr].some(v=>v.toLocaleLowerCase().includes(q)));
+ const fragment=document.createDocumentFragment();
+ for(const x of match){
+  const card=el("article","card"),head=el("div","head"),info=el("div"),example=el("div","example"),actions=el("div","actions");
+  info.append(el("div","word",x.en),el("div","ipa",x.ipa));
+  head.append(el("div","emoji",x.icon),info);
+  example.append(el("div","en",x.ex),el("div","tr",x.tr));
+  actions.append(audio("🔊 單字",x.en,false),audio("🐢 單字慢速",x.en,true),audio("🔊 例句",x.ex,false),audio("🐢 例句慢速",x.ex,true));
+  card.append(head,el("div","meaning",x.zh),example,actions);
+  fragment.append(card);
+ }
+ byId("cards").replaceChildren(fragment);
+ byId("empty").hidden=match.length>0;
+ byId("status").textContent="顯示 "+match.length+" / "+DATA.length+" 個單字。";
+}
+byId("search").addEventListener("input",render);
+byId("stop").addEventListener("click",()=>{if(synth)synth.cancel();byId("status").textContent="已停止發音。";});
+render();
+</script>
+</body>
+</html>
