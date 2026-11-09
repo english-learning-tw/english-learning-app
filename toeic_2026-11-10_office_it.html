@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#174766">
+<meta name="description" content="[11/10]主題辦公設備與資訊科技｜多益高頻英文20單字，提供美式音標、繁體中文、中英對照例句、單字與例句正常及慢速發音。">
+<title>[11/10]主題辦公設備與資訊科技｜多益高頻英文20單字</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;color:#203c50;background:#f2f7fa}
+*{box-sizing:border-box}
+body{margin:0;line-height:1.55;padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+header{background:linear-gradient(120deg,#173c59,#1b7183);padding:23px 16px 29px;color:#fff}
+.wrap{max-width:1060px;margin:0 auto}
+header h1{font-size:clamp(23px,5vw,32px);line-height:1.4;margin:15px 0 9px}
+header p{font-size:14px;margin:0;color:#e5f6f8}
+.back{display:inline-flex;align-items:center;color:white;border:1px solid #d8eaf099;text-decoration:none;border-radius:11px;min-height:44px;padding:10px 13px;font-size:14px;font-weight:700}
+main{padding:18px 14px}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid #dce6eb;border-radius:15px;padding:12px}
+.search{flex:1;min-width:190px;border:1px solid #afc7d0;border-radius:11px;font-size:16px;min-height:48px;padding:10px 14px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.stop{border:1px solid #bcd0dd;border-radius:10px;padding:10px 12px;min-height:46px;background:#edf5f8;color:#22556c;font-weight:700}
+.status{font-size:13px;color:#4e7282;margin:12px 3px;min-height:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,305px),1fr));gap:14px}
+.card{background:white;border:1px solid #dce8ed;border-radius:17px;padding:17px;box-shadow:0 4px 16px #1b384910}
+.head{display:flex;align-items:center;gap:13px}
+.emoji{width:56px;height:56px;border-radius:13px;background:#e9f5f5;display:grid;place-items:center;font-size:29px;flex:none}
+.word{color:#165e79;font-weight:800;font-size:22px;overflow-wrap:anywhere}
+.ipa{font-size:14px;color:#527586;margin-top:2px}
+.meaning{font-size:16px;font-weight:750;margin:12px 0 10px}
+.example{border:1px solid #e5ecef;background:#f5f9fb;border-radius:12px;padding:12px}
+.en{font-size:15px;line-height:1.65}
+.zh{font-size:14px;color:#536f7d;line-height:1.7;margin-top:7px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}
+.audio{background:#176d88;color:white;border:none;border-radius:10px;min-height:46px;padding:8px 5px;font-size:14px;font-weight:750}
+.audio.slow{background:#e9f3f7;border:1px solid #bed9e2;color:#1a657d}
+:focus-visible{outline:3px solid #ffb74c;outline-offset:2px}
+.empty{color:#557688;text-align:center;padding:40px}
+footer{font-size:12px;color:#6a8491;text-align:center;line-height:1.7;padding:26px 8px}
+@media(max-width:350px){.card{padding:13px}.audio{font-size:13px}.word{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="./index.html">← 返回 English Learning App 首頁</a><h1>[11/10]主題辦公設備與資訊科技｜多益高頻英文20單字</h1><p>💻 辦公設備與 IT 情境 × 20 單字｜🔊 美式英語｜🐢 慢速跟讀｜📱 iPhone 友善</p></div></header>
+<main class="wrap">
+<section class="toolbar" aria-label="教材搜尋">
+<input class="search" id="search" type="search" placeholder="搜尋英文、中文或例句…" aria-label="搜尋英文、中文或例句" autocomplete="off">
+<button class="stop" id="stop" type="button">⏹ 停止發音</button>
+</section>
+<p id="status" class="status" role="status" aria-live="polite">共 20 個單字，點選發音按鈕即可練習。</p>
+<section id="cards" class="grid" aria-label="每日 TOEIC 高頻英文單字"></section>
+<p id="empty" class="empty" hidden>找不到相符的內容，請更換關鍵字。</p>
+<footer>語音使用裝置 Web Speech API，實際聲音、可用的美式英語語音及播放效果依手機與瀏覽器而異。首次使用請點選發音按鈕啟動語音。</footer>
+</main>
+<script>
+"use strict";
+const DATA=[{"en":"workstation","ipa":"/ˈwɝːkˌsteɪʃən/","zh":"電腦工作站；辦公工作區","icon":"🖥️","ex":"The IT team will replace outdated workstations next month.","tr":"資訊部門下個月將更換老舊的工作站。"},{"en":"hardware","ipa":"/ˈhɑːrdˌwer/","zh":"電腦硬體","icon":"💻","ex":"All new hardware must be approved before purchase.","tr":"所有新硬體在採購前都必須先經過核准。"},{"en":"software","ipa":"/ˈsɔːftˌwer/","zh":"軟體","icon":"📱","ex":"Employees can download the software from the company's internal website.","tr":"員工可以從公司內部網站下載此軟體。"},{"en":"network","ipa":"/ˈnetˌwɝːk/","zh":"網路；網路系統","icon":"🌐","ex":"The office network will be unavailable during Saturday's maintenance.","tr":"週六維護期間，辦公室網路將無法使用。"},{"en":"server","ipa":"/ˈsɝːvɚ/","zh":"伺服器","icon":"🗄️","ex":"The server was restarted after the scheduled maintenance.","tr":"伺服器在排定的維護作業後已重新啟動。"},{"en":"printer","ipa":"/ˈprɪntɚ/","zh":"印表機","icon":"🖨️","ex":"The printer on the third floor is running low on paper.","tr":"三樓的印表機紙張快用完了。"},{"en":"scanner","ipa":"/ˈskænɚ/","zh":"掃描器","icon":"📠","ex":"Use the scanner to create a PDF copy of the signed form.","tr":"請使用掃描器將已簽署的表格製成 PDF 副本。"},{"en":"copier","ipa":"/ˈkɑːpiɚ/","zh":"影印機","icon":"📄","ex":"The copier near reception is available to all employees.","tr":"接待處附近的影印機供所有員工使用。"},{"en":"toner","ipa":"/ˈtoʊnɚ/","zh":"碳粉","icon":"⚫","ex":"Please order more toner before the monthly report is printed.","tr":"請在列印月報之前訂購更多碳粉。"},{"en":"cartridge","ipa":"/ˈkɑːrtrɪdʒ/","zh":"墨水匣；碳粉匣","icon":"🧩","ex":"A replacement toner cartridge is stored in the supply cabinet.","tr":"備用碳粉匣放在用品櫃中。"},{"en":"spreadsheet","ipa":"/ˈspredˌʃiːt/","zh":"試算表","icon":"📊","ex":"Please update the spreadsheet with the latest sales figures.","tr":"請將最新的銷售數據更新到試算表。"},{"en":"installation","ipa":"/ˌɪnstəˈleɪʃən/","zh":"安裝；裝設","icon":"🔧","ex":"The installation of the new system is scheduled for Friday.","tr":"新系統的安裝安排在週五。"},{"en":"configuration","ipa":"/kənˌfɪɡjəˈreɪʃən/","zh":"設定；組態","icon":"⚙️","ex":"The technician will check the printer's network configuration.","tr":"技術人員將檢查印表機的網路設定。"},{"en":"compatible","ipa":"/kəmˈpætəbəl/","zh":"相容的","icon":"🔗","ex":"This application is compatible with most office computers.","tr":"這款應用程式與大多數辦公室電腦相容。"},{"en":"database","ipa":"/ˈdeɪtəˌbeɪs/","zh":"資料庫","icon":"🗃️","ex":"Customer records are stored in a secure database.","tr":"客戶紀錄儲存在安全的資料庫中。"},{"en":"password","ipa":"/ˈpæsˌwɝːd/","zh":"密碼","icon":"🔐","ex":"Employees are required to change their passwords every ninety days.","tr":"員工必須每九十天更換一次密碼。"},{"en":"backup","ipa":"/ˈbækˌʌp/","zh":"備份；備份檔","icon":"💾","ex":"The system creates a backup of important files every night.","tr":"系統每晚都會建立重要檔案的備份。"},{"en":"outage","ipa":"/ˈaʊtɪdʒ/","zh":"（電力或網路）中斷","icon":"🚨","ex":"The internet outage delayed online customer orders.","tr":"網路中斷延誤了線上客戶訂單的處理。"},{"en":"reboot","ipa":"/ˌriːˈbuːt/","zh":"重新啟動","icon":"🔄","ex":"If the screen freezes, reboot the computer and try again.","tr":"如果螢幕當機，請重新啟動電腦再試一次。"},{"en":"firewall","ipa":"/ˈfaɪɚˌwɔːl/","zh":"防火牆","icon":"🛡️","ex":"The company's firewall blocks unauthorized network traffic.","tr":"公司的防火牆會阻擋未經授權的網路流量。"}];
+const $=id=>document.getElementById(id);
+const synth=("speechSynthesis" in window)?window.speechSynthesis:null;
+let voices=[];
+function loadVoices(){if(synth)voices=synth.getVoices();}
+if(synth){loadVoices();if(typeof synth.addEventListener==="function")synth.addEventListener("voiceschanged",loadVoices);}
+function speak(text,slow){
+ if(!synth||typeof SpeechSynthesisUtterance==="undefined"){$("status").textContent="此瀏覽器不支援朗讀，請嘗試 iPhone Safari。";return;}
+ synth.cancel();
+ const u=new SpeechSynthesisUtterance(text);
+ u.lang="en-US";u.rate=slow?0.65:0.98;u.pitch=1;
+ const v=voices.find(x=>x.lang.toLowerCase().replace(/_/g,"-")==="en-us");
+ if(v)u.voice=v;
+ u.onstart=()=>{$("status").textContent="正在播放"+(slow?"慢速":"正常")+"英語發音…";};
+ u.onend=()=>{$("status").textContent="播放完成，可再次點選發音。";};
+ u.onerror=()=>{$("status").textContent="朗讀失敗，請檢查音量或改用 Safari。";};
+ synth.speak(u);
+}
+function node(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;}
+function audioBtn(label,text,slow){const b=node("button","audio"+(slow?" slow":""),label);b.type="button";b.setAttribute("aria-label",label+"："+text);b.addEventListener("click",()=>speak(text,slow));return b;}
+function render(){
+ const q=$("search").value.trim().toLocaleLowerCase();
+ const items=DATA.filter(x=>[x.en,x.ipa,x.zh,x.ex,x.tr].some(y=>y.toLocaleLowerCase().includes(q)));
+ const frag=document.createDocumentFragment();
+ for(const x of items){
+  const c=node("article","card"),head=node("div","head"),info=node("div");
+  info.append(node("div","word",x.en),node("div","ipa",x.ipa));
+  head.append(node("div","emoji",x.icon),info);
+  const example=node("div","example");example.append(node("div","en",x.ex),node("div","zh",x.tr));
+  const actions=node("div","actions");
+  actions.append(audioBtn("🔊 單字",x.en,false),audioBtn("🐢 單字慢速",x.en,true),audioBtn("🔊 例句",x.ex,false),audioBtn("🐢 例句慢速",x.ex,true));
+  c.append(head,node("div","meaning",x.zh),example,actions);frag.append(c);
+ }
+ $("cards").replaceChildren(frag);$("empty").hidden=items.length!==0;
+ $("status").textContent="顯示 "+items.length+" / "+DATA.length+" 個單字。";
+}
+$("search").addEventListener("input",render);
+$("stop").addEventListener("click",()=>{if(synth)synth.cancel();$("status").textContent="已停止發音。";});
+render();
+</script>
+</body></html>
