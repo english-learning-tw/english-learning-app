@@ -1,8 +1,8 @@
 'use strict';
 // v4: Always try the network for lessons. Use previously saved content offline.
-const CACHE = 'english-learning-v4-20261018-network-first';
+const CACHE = 'english-learning-v5-20261111-idioms-tab';
 const APP_SHELL = [
-  './', './index.html', './v2.js', './cloud.js',
+  './', './index.html', './v2.js', './cloud.js', './nature_idioms_pronunciation.html',
   './catalog.json', './manifest.webmanifest',
   './icon-192.png', './icon-512.png'
 ];
