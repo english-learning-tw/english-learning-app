@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#153f63">
+<meta name="description" content="2026年11月11日 TOEIC 商務合約與條款20單字。附美式 IPA、繁體中文、TOEIC 情境中英例句及正常/慢速英文發音，適合 iPhone。">
+<title>[11/11]主題商務合約與條款｜多益高頻英文20單字</title>
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;color:#1c3449;background:#f3f7fa}
+*{box-sizing:border-box}body{margin:0;line-height:1.55;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+header{background:linear-gradient(120deg,#153954,#206b81);color:#fff;padding:25px 16px 27px}
+.wrap{max-width:1060px;margin:0 auto}
+header h1{font-size:clamp(21px,4.8vw,30px);line-height:1.38;margin:14px 0 10px}
+header p{margin:0;color:#e3f1f5;font-size:14px}
+.back{display:inline-flex;color:#fff;text-decoration:none;align-items:center;border:1px solid #c0dbe09b;border-radius:11px;min-height:44px;padding:9px 13px;font-size:14px;font-weight:700}
+main{padding:18px 14px 0}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;padding:12px;background:white;border:1px solid #d7e3eb;border-radius:15px}
+.search{flex:1;min-width:190px;font:inherit;font-size:16px;padding:11px 13px;min-height:48px;border:1px solid #adc7d3;border-radius:10px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.stop{min-height:46px;padding:8px 13px;color:#185870;background:#e9f3f6;border:1px solid #bdd4dd;border-radius:10px;font-weight:700}
+.status{font-size:13px;color:#526e7e;margin:11px 2px 15px;min-height:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,315px),1fr));gap:14px}
+.card{background:#fff;border:1px solid #dce7ed;border-radius:17px;padding:17px;box-shadow:0 4px 15px #244d680a}
+.head{display:flex;align-items:center;gap:12px}
+.emoji{flex:none;width:57px;height:57px;display:grid;place-items:center;font-size:29px;border-radius:13px;background:#eaf5f7}
+.word{font-size:22px;font-weight:800;color:#165d79;overflow-wrap:anywhere}
+.ipa{font-size:14px;margin-top:2px;color:#55717e}
+.meaning{font-size:16px;font-weight:750;margin:13px 0 11px}
+.example{background:#f5f9fa;border:1px solid #e3edf0;border-radius:12px;padding:12px}
+.en{font-size:15px;line-height:1.75}.zh{font-size:14px;color:#4a6878;line-height:1.7;margin-top:8px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}
+.audio{background:#176d89;color:white;font-weight:750;font-size:14px;border:0;border-radius:10px;min-height:47px;padding:8px 6px}
+.audio.slow{color:#175c75;background:#e8f3f7;border:1px solid #bed5e0}
+.empty{text-align:center;padding:45px 12px;color:#5e7886}
+button:focus-visible,input:focus-visible,.back:focus-visible{outline:3px solid #e9b73b;outline-offset:2px}
+footer{padding:25px 0;color:#617c8b;font-size:12px;text-align:center}
+@media(max-width:350px){.card{padding:13px}.word{font-size:20px}.audio{font-size:13px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="./index.html">← 返回 English Learning App 首頁</a><h1>[11/11]主題商務合約與條款｜多益高頻英文20單字</h1><p>📑 商務合約 × 20 個單字｜🇺🇸 美式 IPA｜🔊 正常發音｜🐢 慢速跟讀</p></div></header>
+<main class="wrap">
+<section class="toolbar" aria-label="教材搜尋與控制">
+<input id="search" class="search" type="search" placeholder="搜尋英文、中文、例句…" aria-label="搜尋英文單字、中文或例句" autocomplete="off">
+<button id="stop" class="stop" type="button">⏹ 停止發音</button>
+</section>
+<p id="status" class="status" role="status" aria-live="polite">共 20 個單字。點選卡片下方的發音按鈕練習。</p>
+<section id="cards" class="grid" aria-label="多益高頻英文20單字"></section>
+<p id="empty" class="empty" hidden>找不到相符的單字，請更換搜尋內容。</p>
+<footer>發音使用手機或瀏覽器內建 Web Speech 語音服務，實際美式音色依裝置的語音資源而定。本教材為 TOEIC 常見職場情境練習，非官方詞頻排行。</footer>
+</main>
+<script>
+"use strict";
+const DATA=[{"en":"contract","ipa":"/ˈkɑːntrækt/","zh":"合約；契約","icon":"📃","ex":"The supplier signed a two-year contract to provide office furniture.","tr":"供應商簽署了一份為期兩年的合約，負責供應辦公家具。"},{"en":"agreement","ipa":"/əˈɡriːmənt/","zh":"協議；同意","icon":"🤝","ex":"Both companies reached an agreement on the delivery schedule.","tr":"兩家公司就交貨時程達成協議。"},{"en":"clause","ipa":"/klɔːz/","zh":"（合約）條款","icon":"📑","ex":"Please review the payment clause before signing the document.","tr":"簽署文件前，請先檢查付款條款。"},{"en":"provision","ipa":"/prəˈvɪʒən/","zh":"（法律、合約）規定；條款","icon":"📋","ex":"The contract includes a provision for annual price adjustments.","tr":"合約包含每年調整價格的條款。"},{"en":"obligation","ipa":"/ˌɑːbləˈɡeɪʃən/","zh":"義務；責任","icon":"⚖️","ex":"Both parties have an obligation to protect customer data.","tr":"雙方都有義務保護客戶資料。"},{"en":"effective","ipa":"/ɪˈfektɪv/","zh":"生效的；有效的","icon":"📆","ex":"The revised policy becomes effective on December first.","tr":"修訂後的政策將於十二月一日生效。"},{"en":"amendment","ipa":"/əˈmendmənt/","zh":"修正；修訂條款","icon":"📝","ex":"Any amendment to the agreement requires written approval.","tr":"此協議的任何修正都需要書面核准。"},{"en":"renewal","ipa":"/rɪˈnuːəl/","zh":"續約；更新","icon":"🔄","ex":"Please contact us thirty days before the contract renewal date.","tr":"請於合約續約日期三十天前與我們聯絡。"},{"en":"expiration","ipa":"/ˌekspəˈreɪʃən/","zh":"期滿；到期","icon":"⌛","ex":"The manager will review the agreement before its expiration.","tr":"經理會在協議到期前進行審查。"},{"en":"consent","ipa":"/kənˈsent/","zh":"同意；許可","icon":"✅","ex":"The company cannot share personal information without the client's consent.","tr":"未經客戶同意，公司不得分享個人資料。"},{"en":"dispute","ipa":"/dɪˈspjuːt/","zh":"爭議；糾紛","icon":"🗣️","ex":"The legal department is handling a dispute over unpaid fees.","tr":"法務部門正在處理一起關於未付費用的爭議。"},{"en":"settlement","ipa":"/ˈsetəlmənt/","zh":"和解；協議解決","icon":"🤲","ex":"Both parties agreed to a settlement to avoid further legal costs.","tr":"雙方同意和解，以避免進一步的法律費用。"},{"en":"penalty","ipa":"/ˈpenəlti/","zh":"罰款；違約罰則","icon":"💸","ex":"A late-payment penalty will apply after the due date.","tr":"到期日後將收取逾期付款罰金。"},{"en":"binding","ipa":"/ˈbaɪndɪŋ/","zh":"有法律約束力的","icon":"🔗","ex":"The agreement becomes legally binding once both parties sign it.","tr":"雙方簽名後，此協議即具有法律約束力。"},{"en":"terminate","ipa":"/ˈtɝːməneɪt/","zh":"終止；結束","icon":"⛔","ex":"The customer may terminate the service contract with thirty days' notice.","tr":"客戶可提前三十天通知終止服務合約。"},{"en":"enforce","ipa":"/ɪnˈfɔːrs/","zh":"執行；強制實施","icon":"🛡️","ex":"The company will enforce the terms of the lease.","tr":"公司將執行租約條款。"},{"en":"disclosure","ipa":"/dɪˈskloʊʒɚ/","zh":"揭露；公開資訊","icon":"🔍","ex":"Full disclosure of additional fees is required before purchase.","tr":"購買前必須完整揭露額外費用。"},{"en":"liable","ipa":"/ˈlaɪəbəl/","zh":"應負法律責任的","icon":"⚠️","ex":"The contractor is liable for damage caused during installation.","tr":"承包商應對安裝過程中造成的損害負責。"},{"en":"authorize","ipa":"/ˈɔːθəraɪz/","zh":"授權；核准","icon":"🔐","ex":"Only the finance director can authorize changes to the payment terms.","tr":"只有財務主管能核准付款條件的變更。"},{"en":"mutual","ipa":"/ˈmjuːtʃuəl/","zh":"相互的；共同的","icon":"🤜🤛","ex":"The partnership is based on mutual trust and clear responsibilities.","tr":"該合作夥伴關係建立在相互信任及明確責任的基礎上。"}];
+const el=id=>document.getElementById(id);
+const synth=("speechSynthesis" in window)?window.speechSynthesis:null;
+let voices=[];
+function loadVoices(){if(synth)voices=synth.getVoices();}
+if(synth){loadVoices();if(typeof synth.addEventListener==="function")synth.addEventListener("voiceschanged",loadVoices);}
+function speak(text,slow){
+ if(!synth||typeof SpeechSynthesisUtterance==="undefined"){el("status").textContent="此裝置或瀏覽器不支援語音朗讀；建議使用 iPhone Safari。";return;}
+ synth.cancel();
+ const u=new SpeechSynthesisUtterance(text);
+ u.lang="en-US";u.rate=slow?0.66:0.98;u.pitch=1;
+ const v=voices.find(v=>v.lang.toLowerCase().replace(/_/g,"-")==="en-us");
+ if(v)u.voice=v;
+ u.onstart=()=>{el("status").textContent="正在播放"+(slow?"慢速":"正常")+"英語發音…";};
+ u.onend=()=>{el("status").textContent="播放結束，可再次點選發音。";};
+ u.onerror=e=>{el("status").textContent=e.error==="canceled"?"已停止發音。":"語音播放失敗，請檢查音量或改用 Safari。";};
+ synth.speak(u);
+}
+function node(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;}
+function audioBtn(label,txt,slow){const b=node("button","audio"+(slow?" slow":""),label);b.type="button";b.setAttribute("aria-label",label+"："+txt);b.addEventListener("click",()=>speak(txt,slow));return b;}
+function render(){
+ const q=el("search").value.trim().toLocaleLowerCase();
+ const entries=DATA.filter(x=>[x.en,x.ipa,x.zh,x.ex,x.tr].some(t=>t.toLocaleLowerCase().includes(q)));
+ const frag=document.createDocumentFragment();
+ for(const x of entries){
+  const card=node("article","card");const head=node("div","head"),info=node("div");
+  info.append(node("div","word",x.en),node("div","ipa",x.ipa));
+  head.append(node("div","emoji",x.icon),info);
+  const example=node("div","example");example.append(node("div","en",x.ex),node("div","zh",x.tr));
+  const actions=node("div","actions");
+  actions.append(audioBtn("🔊 單字",x.en,false),audioBtn("🐢 單字慢速",x.en,true),audioBtn("🔊 例句",x.ex,false),audioBtn("🐢 例句慢速",x.ex,true));
+  card.append(head,node("div","meaning",x.zh),example,actions);frag.append(card);
+ }
+ el("cards").replaceChildren(frag);
+ el("empty").hidden=entries.length!==0;
+ el("status").textContent="顯示 "+entries.length+" / "+DATA.length+" 個單字。";
+}
+el("search").addEventListener("input",render);
+el("stop").addEventListener("click",()=>{if(synth)synth.cancel();el("status").textContent="已停止發音。";});
+render();
+</script>
+</body></html>
