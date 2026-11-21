@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#166678">
+<meta name="description" content="[11/21]主題企業永續與環境管理｜多益高頻英文20單字，20 個永續職場詞彙，附美式 IPA、中英對照例句、可搜尋及 iPhone 正常／慢速發音。">
+<title>[11/21]主題企業永續與環境管理｜多益高頻英文20單字</title>
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",system-ui,sans-serif;color:#1a3444;background:#f2f8f8}
+*{box-sizing:border-box}body{margin:0;line-height:1.62;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+header{padding:23px 16px 27px;background:linear-gradient(115deg,#174355,#197e73);color:#fff}
+.wrap{max-width:1100px;margin:0 auto}h1{font-size:clamp(22px,4.6vw,31px);line-height:1.38;margin:16px 0 9px}
+.sub{font-size:14px;color:#e4f8f3;margin:0}.back{display:inline-flex;align-items:center;color:#fff;text-decoration:none;border:1px solid #d5eee5a6;border-radius:11px;min-height:44px;padding:9px 13px;font-weight:700;font-size:14px}
+main{max-width:1128px;margin:auto;padding:18px 15px}.controls{display:flex;gap:10px;flex-wrap:wrap;background:#fff;padding:12px;border:1px solid #d6e8e5;border-radius:15px}
+.search{flex:1;min-width:180px;min-height:48px;padding:12px;border:1px solid #aacac2;border-radius:11px;font-size:16px}
+button{font:inherit;cursor:pointer;touch-action:manipulation}.stop{min-height:46px;padding:10px 12px;border:1px solid #b7d8cf;border-radius:10px;background:#e9f4ef;color:#22634f;font-weight:700}
+.status{font-size:14px;color:#506e72;margin:12px 3px 16px;min-height:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:14px}
+.card{background:#fff;border:1px solid #dbeae5;border-radius:16px;padding:17px;box-shadow:0 4px 14px #1a53420b}
+.head{display:flex;gap:12px;align-items:center}.pic{display:grid;place-items:center;background:#e9f7f0;font-size:30px;border-radius:14px;width:58px;height:58px;flex:none}
+.word{font-weight:800;color:#18735d;font-size:22px;overflow-wrap:anywhere}.ipa{font-size:14px;color:#577780;margin-top:3px}
+.meaning{font-weight:750;margin:13px 0 10px}.example{background:#f3f8f7;border:1px solid #e4eeec;border-radius:11px;padding:12px}
+.en{font-size:15px;line-height:1.68}.tr{font-size:14px;line-height:1.68;color:#526f76;margin-top:8px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}.audio{min-height:46px;border:0;border-radius:11px;background:#177760;color:white;font-size:14px;font-weight:730;padding:8px 5px}
+.audio.slow{background:#e7f4ed;color:#206d57;border:1px solid #bddbd0}
+button:focus-visible,input:focus-visible,.back:focus-visible{outline:3px solid #f0b940;outline-offset:2px}
+.empty{padding:36px 8px;color:#5a7782;text-align:center}footer{padding:26px 7px 12px;color:#627d80;font-size:12px;text-align:center;line-height:1.7}
+@media(max-width:350px){.card{padding:13px}.audio{font-size:12.5px}.word{font-size:20px}}
+</style></head><body>
+<header><div class="wrap"><a class="back" href="./index.html">← 返回 English Learning App 首頁</a><h1>[11/21]主題企業永續與環境管理｜多益高頻英文20單字</h1><p class="sub">🌿 企業永續 × 20 個單字｜🇺🇸 美式 IPA｜🔊 單字與例句發音｜🐢 慢速練習</p></div></header>
+<main><section class="controls" aria-label="單字搜尋與播放控制"><input id="search" class="search" type="search" autocomplete="off" placeholder="搜尋英文、中文、例句或音標…" aria-label="搜尋單字與例句"><button id="stop" class="stop" type="button">⏹ 停止播放</button></section>
+<p id="status" class="status" role="status" aria-live="polite">準備載入單字…</p>
+<section class="grid" id="cards" aria-label="今日 TOEIC 20 單字"></section>
+<p id="empty" class="empty" hidden>找不到相符的內容，請更換搜尋關鍵字。</p>
+<footer>本教材為原創 TOEIC 常見職場情境例句，非 ETS 官方單字頻率排名。英文發音採用裝置內建 Web Speech API，優先使用 en-US 語音；實際聲音可能隨瀏覽器或系統設定而不同。建議 iPhone 使用 Safari 開啟。</footer></main>
+<script>
+"use strict";
+const DATA=[{"en":"sustainability","ipa":"/səˌsteɪnəˈbɪləti/","zh":"永續性；永續經營","icon":"🌱","ex":"The company published its annual sustainability report last week.","tr":"公司上週發布了年度永續報告。"},{"en":"carbon footprint","ipa":"/ˈkɑːrbən ˈfʊtˌprɪnt/","zh":"碳足跡","icon":"👣","ex":"The manufacturer aims to reduce its carbon footprint by using cleaner transportation.","tr":"製造商希望透過更環保的運輸方式降低碳足跡。"},{"en":"greenhouse gas","ipa":"/ˈɡriːnˌhaʊs ɡæs/","zh":"溫室氣體","icon":"🌍","ex":"The factory tracks greenhouse gas emissions every quarter.","tr":"工廠每季追蹤溫室氣體排放量。"},{"en":"emissions","ipa":"/ɪˈmɪʃənz/","zh":"（氣體等）排放量","icon":"🏭","ex":"New equipment has significantly lowered emissions from the plant.","tr":"新設備已大幅降低工廠的排放量。"},{"en":"conservation","ipa":"/ˌkɑːnsɚˈveɪʃən/","zh":"資源保育；節約","icon":"💧","ex":"The office introduced a water conservation program for all departments.","tr":"辦公室為所有部門推行了節水計畫。"},{"en":"recycling","ipa":"/riːˈsaɪklɪŋ/","zh":"回收再利用","icon":"♻️","ex":"Please place paper and plastic in the designated recycling bins.","tr":"請將紙類與塑膠放入指定的回收桶。"},{"en":"recyclable","ipa":"/riːˈsaɪkləbəl/","zh":"可回收的","icon":"📦","ex":"All packaging for the new product is recyclable.","tr":"新產品的所有包裝材料都可以回收。"},{"en":"biodegradable","ipa":"/ˌbaɪoʊdɪˈɡreɪdəbəl/","zh":"可生物分解的","icon":"🍃","ex":"The cafeteria has switched to biodegradable food containers.","tr":"員工餐廳已改用可生物分解的食品容器。"},{"en":"pollution","ipa":"/pəˈluːʃən/","zh":"污染","icon":"🌫️","ex":"The new filters will help prevent air pollution near the facility.","tr":"新型過濾器將有助於防止設施周邊的空氣污染。"},{"en":"landfill","ipa":"/ˈlændˌfɪl/","zh":"垃圾掩埋場","icon":"🚛","ex":"The retailer is working to send less packaging waste to landfills.","tr":"這家零售商正努力減少送往掩埋場的包裝廢棄物。"},{"en":"disposal","ipa":"/dɪˈspoʊzəl/","zh":"處置；廢棄物清理","icon":"🗑️","ex":"Proper disposal of used batteries is required by company policy.","tr":"公司政策規定必須妥善處理廢電池。"},{"en":"compost","ipa":"/ˈkɑːmpoʊst/","zh":"堆肥","icon":"🪴","ex":"Food scraps from the employee cafeteria are collected for compost.","tr":"員工餐廳的廚餘會被收集用來製作堆肥。"},{"en":"solar panel","ipa":"/ˈsoʊlɚ ˈpænəl/","zh":"太陽能板","icon":"☀️","ex":"The company plans to install solar panels on the warehouse roof.","tr":"公司計畫在倉庫屋頂安裝太陽能板。"},{"en":"wind turbine","ipa":"/ˈwɪnd ˈtɝːbaɪn/","zh":"風力發電機","icon":"🌬️","ex":"The energy provider operates several wind turbines near the coast.","tr":"能源供應商在海岸附近營運數座風力發電機。"},{"en":"energy-efficient","ipa":"/ˈenɚdʒi ɪˈfɪʃənt/","zh":"節能的；能源效率高的","icon":"💡","ex":"The hotel replaced its old lights with energy-efficient models.","tr":"飯店將舊燈具更換成節能型號。"},{"en":"reusable","ipa":"/riːˈjuːzəbəl/","zh":"可重複使用的","icon":"🥤","ex":"Employees are encouraged to bring reusable water bottles to work.","tr":"公司鼓勵員工攜帶可重複使用的水瓶上班。"},{"en":"ecological","ipa":"/ˌiːkəˈlɑːdʒɪkəl/","zh":"生態的；生態環境的","icon":"🌳","ex":"The construction team considered the ecological effects of the project.","tr":"施工團隊評估了這項工程對生態環境的影響。"},{"en":"water consumption","ipa":"/ˈwɔːtɚ kənˈsʌmpʃən/","zh":"用水量","icon":"🚰","ex":"Monthly water consumption decreased after the repairs were completed.","tr":"維修完成後，每月用水量下降了。"},{"en":"environmental impact","ipa":"/ɪnˌvaɪrənˈmentəl ˈɪmpækt/","zh":"環境影響","icon":"🔎","ex":"The board requested a report on the environmental impact of the expansion.","tr":"董事會要求提交擴建計畫的環境影響報告。"},{"en":"waste reduction","ipa":"/ˈweɪst rɪˈdʌkʃən/","zh":"廢棄物減量","icon":"📉","ex":"Waste reduction is one of the company's key goals this year.","tr":"廢棄物減量是公司今年的主要目標之一。"}];
+const $=id=>document.getElementById(id);
+const synth=("speechSynthesis" in window)?window.speechSynthesis:null;
+let voices=[];
+function loadVoices(){if(synth)voices=synth.getVoices()||[]}
+if(synth){loadVoices();if(typeof synth.addEventListener==="function")synth.addEventListener("voiceschanged",loadVoices)}
+function speak(text,slow){
+ if(!synth||typeof SpeechSynthesisUtterance==="undefined"){$("status").textContent="此瀏覽器不支援語音；請嘗試 iPhone Safari。";return;}
+ try{
+   synth.cancel();loadVoices();
+   const u=new SpeechSynthesisUtterance(text);
+   u.lang="en-US";u.rate=slow?0.65:0.98;u.pitch=1;
+   const us=voices.find(v=>v.lang.toLowerCase().replace(/_/g,"-")==="en-us");
+   if(us)u.voice=us;
+   u.onstart=()=>{$("status").textContent="正在播放"+(slow?"慢速":"正常語速")+"英文…"};
+   u.onend=()=>{$("status").textContent="播放完成，可點選下一個發音按鈕。"};
+   u.onerror=e=>{if(!["canceled","interrupted"].includes(e.error))$("status").textContent="語音播放失敗，請檢查音量或使用 Safari。"};
+   synth.speak(u);
+ }catch(e){$("status").textContent="語音功能無法啟動，請檢查瀏覽器設定。"}
+}
+function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
+function audio(label,text,slow){const b=el("button","audio"+(slow?" slow":""),label);b.type="button";b.setAttribute("aria-label",label+"："+text);b.addEventListener("click",()=>speak(text,slow));return b}
+function render(){
+ const q=$("search").value.trim().toLocaleLowerCase();
+ const matched=DATA.filter(x=>[x.en,x.ipa,x.zh,x.ex,x.tr].some(s=>s.toLocaleLowerCase().includes(q)));
+ const fragment=document.createDocumentFragment();
+ for(const x of matched){
+   const card=el("article","card"),head=el("div","head"),info=el("div");
+   info.append(el("div","word",x.en),el("div","ipa",x.ipa));head.append(el("div","pic",x.icon),info);
+   const example=el("div","example");example.append(el("div","en",x.ex),el("div","tr",x.tr));
+   const actions=el("div","actions");actions.append(audio("🔊 單字",x.en,false),audio("🐢 單字慢速",x.en,true),audio("🔊 例句",x.ex,false),audio("🐢 例句慢速",x.ex,true));
+   card.append(head,el("div","meaning",x.zh),example,actions);fragment.append(card);
+ }
+ $("cards").replaceChildren(fragment);$("empty").hidden=matched.length!==0;$("status").textContent="顯示 "+matched.length+" / "+DATA.length+" 個單字。";
+}
+$("search").addEventListener("input",render);
+$("stop").addEventListener("click",()=>{if(synth)synth.cancel();$("status").textContent="已停止播放。"});
+window.addEventListener("pagehide",()=>{if(synth)synth.cancel()});
+render();
+</script></body></html>
