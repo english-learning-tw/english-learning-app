@@ -1,0 +1,96 @@
+name: Verify daily TOEIC publication
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lesson-publications/toeic_*.json'
+      - '.github/workflows/verify-toeic-publication.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  verify:
+    if: github.repository == 'english-learning-tw/english-learning-app' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/781857177241/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions
+          service_account: english-learning-publisher@english-learning-app-461d8.iam.gserviceaccount.com
+          create_credentials_file: true
+          export_environment_variables: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'google-auth>=2.20,<3' 'requests>=2.31,<3'
+      - name: Read back Firestore and check live lesson pages
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          python - <<'PY'
+          import datetime as dt, json, os, pathlib, re, subprocess, time
+          from html import unescape
+          from zoneinfo import ZoneInfo
+          import google.auth
+          from google.auth.transport.requests import AuthorizedSession
+          import requests
+
+          base = "https://english-learning-tw.github.io/english-learning-app/"
+          fs = "https://firestore.googleapis.com/v1/projects/english-learning-app-461d8/databases/(default)/documents/publishedLessons/"
+          today = dt.datetime.now(ZoneInfo("Asia/Taipei")).date()
+          dates = {str(today), str(today - dt.timedelta(days=1))}
+          changed = set()
+          before = os.environ.get("BEFORE_SHA", "")
+          if re.fullmatch(r"[0-9a-f]{40}", before) and set(before) != {"0"}:
+              result = subprocess.run(["git", "diff", "--name-only", before, "HEAD"], capture_output=True, text=True)
+              if result.returncode == 0:
+                  changed = set(result.stdout.splitlines())
+          targets = []
+          for p in sorted(pathlib.Path("lesson-publications").glob("toeic_*.json")):
+              if any(p.name.startswith("toeic_" + d + "_") for d in dates) or str(p) in changed:
+                  targets.append((p, json.loads(p.read_text(encoding="utf-8"))))
+          if not targets:
+              raise SystemExit("No daily lesson metadata to verify")
+          creds, _ = google.auth.default(scopes=["https://www.googleapis.com/auth/datastore"])
+          session = AuthorizedSession(creds)
+          for attempt in range(12):
+              errors = []
+              try:
+                  home = requests.get(base, timeout=15)
+                  home.raise_for_status()
+                  if "publishedLessons" not in home.text:
+                      raise ValueError("Home page does not contain the publishedLessons loader marker")
+              except Exception as e:
+                  errors.append("Home page: " + str(e))
+              for p, m in targets:
+                  filename = m["file"]
+                  if not re.fullmatch(r"toeic_[A-Za-z0-9_-]+\.html", filename):
+                      raise ValueError("Unexpected filename")
+                  try:
+                      doc = session.get(fs + "github-" + filename[:-5], timeout=15)
+                      doc.raise_for_status()
+                      fields = doc.json()["fields"]
+                      for key, expected in {"title":m["title"], "category":m["category"], "url":base+filename}.items():
+                          if fields[key]["stringValue"] != expected:
+                              raise ValueError("Firestore mismatch: " + key)
+                      page = requests.get(base + filename, timeout=15)
+                      page.raise_for_status()
+                      if m["title"] not in unescape(page.text) or "SpeechSynthesisUtterance" not in page.text:
+                          raise ValueError("Live HTML content mismatch")
+                      print("VERIFIED Firestore readback and live HTML:", filename, flush=True)
+                  except Exception as e:
+                      errors.append(filename + ": " + str(e))
+              if not errors:
+                  print("VERIFIED live home and all selected daily lessons", flush=True)
+                  break
+              print("Attempt", attempt + 1, ":", "; ".join(errors), flush=True)
+              if attempt == 11:
+                  raise SystemExit("Publication verification not yet successful")
+              time.sleep(20)
+          PY
